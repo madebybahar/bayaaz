@@ -8,9 +8,13 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
@@ -43,6 +47,8 @@ jobs:
           '
 
       # ── 3. 🔴 Offline guard ─────────────────────────────────────────────────
+      # Both absolute (https:) and protocol-relative (//) forms are caught: the
+      # latter is the one most easily copied in from the web by accident.
       # The extension promises, in its privacy policy and on its site, that it
       # "makes no network requests at all". A remote font or CDN script would
       # break that promise silently — the extension keeps working, the sentence
@@ -54,7 +60,7 @@ jobs:
 
           # 3a. Remote resource references in shipped code (docs/ and third-party
           #     lib/ excluded; lib is vendored MIT code, audited on the way in).
-          hits=$(grep -rnE '@import|url\(\s*["'"'"']?https?:|<(script|link|img|iframe)[^>]+(src|href)=["'"'"']https?:' \
+          hits=$(grep -rnE '@import|url\(\s*["'"'"']?(https?:|//)|<(script|link|img|iframe)[^>]+(src|href)=["'"'"'](https?:|//)' \
                    --include='*.js' --include='*.css' --include='*.html' \
                    --exclude-dir=lib --exclude-dir=docs --exclude-dir=.git . 2>/dev/null || true)
           if [ -n "$hits" ]; then
@@ -68,7 +74,7 @@ jobs:
           # 3b. Network APIs in first-party code. lib/ is exempt: html-to-image
           #     contains a fetch() for inlining external assets, but every asset
           #     this extension gives it is already local or a data: URI.
-          net=$(grep -rnE '\bfetch\s*\(|XMLHttpRequest|navigator\.sendBeacon|new\s+WebSocket|new\s+EventSource' \
+          net=$(grep -rnE '\bfetch\s*\(|XMLHttpRequest|navigator\.sendBeacon|new\s+WebSocket|new\s+EventSource|\bimport\s*\(\s*["'"'"'](https?:|//)' \
                   --include='*.js' --exclude-dir=lib --exclude-dir=docs --exclude-dir=.git . 2>/dev/null || true)
           if [ -n "$net" ]; then
             echo "  FAIL  network API in first-party code:"
@@ -80,7 +86,7 @@ jobs:
 
           # 3c. Fonts must all be local files.
           remote_font=$(grep -rn "@font-face" -A 4 --include='*.css' --exclude-dir=lib --exclude-dir=.git . 2>/dev/null \
-                          | grep -E 'src:.*https?:' || true)
+                          | grep -E 'src:.*(https?:|url\(\s*["'"'"']?//)' || true)
           if [ -n "$remote_font" ]; then
             echo "  FAIL  remote font:"; echo "$remote_font" | sed 's/^/        /'; fail=1
           else
