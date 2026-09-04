@@ -1,6 +1,6 @@
 # 内置字体 · 归属与授权
 
-本目录内全部字体随扩展本地打包（离线，无远程 / CDN），均以 **SIL Open Font License 1.1**（OFL）授权。许可证全文见 [`CJK-OFL-LICENSE.txt`](./CJK-OFL-LICENSE.txt) 与 [`ZenOldMincho-OFL.txt`](./ZenOldMincho-OFL.txt)；各字体的版权与保留字体名（Reserved Font Name）均保留在其内嵌 `name` 表中。未注明所管文字的，均为拉丁文字。
+本目录内全部字体随扩展本地打包（离线，无远程 / CDN），均以 **SIL Open Font License 1.1**（OFL）授权。许可证全文见 [`CJK-OFL-LICENSE.txt`](./CJK-OFL-LICENSE.txt) 与 [`ZenOldMincho-OFL.txt`](./ZenOldMincho-OFL.txt)；各字体的版权与保留字体名（Reserved Font Name）均保留在其内嵌 `name` 表中。未注明所管文字的，均为拉丁文字。两个第三方库的归属见[内置库](../lib/README.zh.md)。
 
 English version: [README.md](./README.md)
 

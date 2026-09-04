@@ -1,14 +1,14 @@
 # Bundled Libraries — Attribution & License
 
 The two libraries in this directory are bundled locally (offline, no remote / CDN), the
-same way the fonts are. 中文版：[README.zh.md](./README.zh.md)。 Both are **MIT** licensed;
+same way the [bundled fonts](../fonts/README.md) are. 中文版：[README.zh.md](./README.zh.md)。 Both are **MIT** licensed;
 the full texts are in [`turndown-LICENSE.txt`](./turndown-LICENSE.txt) and
 [`html-to-image-LICENSE.txt`](./html-to-image-LICENSE.txt).
 
-| File | Library | Copyright / Author | License | Source |
-|---|---|---|---|---|
-| `turndown.js` | Turndown | © 2017 Dom Christie | MIT | github.com/mixmark-io/turndown |
-| `html-to-image.min.js` | html-to-image | © 2017–2026 W.Y. (bubkoo) | MIT | github.com/bubkoo/html-to-image |
+| File | Library | Copyright / Author | Source |
+|---|---|---|---|
+| `turndown.js` | Turndown | © 2017 Dom Christie | github.com/mixmark-io/turndown |
+| `html-to-image.min.js` | html-to-image | © 2017–2026 W.Y. (bubkoo) | github.com/bubkoo/html-to-image |
 
 > **Versions are not recorded.** Both files were vendored as build artefacts and carry no
 > version banner — the minifier stripped it from `html-to-image.min.js`, and the browser

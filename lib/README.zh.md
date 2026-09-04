@@ -1,13 +1,13 @@
 # 内置库 · 归属与授权
 
-本目录内的两个库随扩展本地打包（离线，无远程 / CDN），与字体的做法一致。
+本目录内的两个库随扩展本地打包（离线，无远程 / CDN），与[内置字体](../fonts/README.zh.md)的做法一致。
 English version: [README.md](./README.md)。两者均以 **MIT** 授权，许可证全文见
 [`turndown-LICENSE.txt`](./turndown-LICENSE.txt) 与 [`html-to-image-LICENSE.txt`](./html-to-image-LICENSE.txt)。
 
-| 文件 | 库 | 版权 / 作者 | 许可证 | 来源 |
-|---|---|---|---|---|
-| `turndown.js` | Turndown | © 2017 Dom Christie | MIT | github.com/mixmark-io/turndown |
-| `html-to-image.min.js` | html-to-image | © 2017–2026 W.Y.（bubkoo） | MIT | github.com/bubkoo/html-to-image |
+| 文件 | 库 | 版权 / 作者 | 来源 |
+|---|---|---|---|
+| `turndown.js` | Turndown | © 2017 Dom Christie | github.com/mixmark-io/turndown |
+| `html-to-image.min.js` | html-to-image | © 2017–2026 W.Y.（bubkoo） | github.com/bubkoo/html-to-image |
 
 > **版本未记录。** 两个文件都是以构建产物的形式取来的，头部没有版本标记——`html-to-image.min.js`
 > 的版本横幅被压缩器剥掉了，Turndown 的浏览器 UMD 构建则本来就没有。用哈希比对 npm 上已发布的

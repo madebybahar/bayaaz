@@ -3,7 +3,7 @@
 All fonts in this directory are bundled locally (offline, no remote / CDN) and are
 licensed under the **SIL Open Font License 1.1** (OFL). 中文版：[README.zh.md](./README.zh.md)。 The full license text is in
 [`CJK-OFL-LICENSE.txt`](./CJK-OFL-LICENSE.txt) and [`ZenOldMincho-OFL.txt`](./ZenOldMincho-OFL.txt); each font also carries its own
-copyright and Reserved Font Name in its embedded `name` table. Faces with no writing named in brackets are Latin.
+copyright and Reserved Font Name in its embedded `name` table. Faces with no writing named in brackets are Latin. The two third-party libraries are registered in [Bundled Libraries](../lib/README.md).
 
 | File | Font | Copyright / Author | Source |
 |---|---|---|---|
