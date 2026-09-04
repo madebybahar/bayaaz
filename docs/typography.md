@@ -181,3 +181,14 @@ By default "paper-title-YYYYMMDD-bayaaz"; when the title holds right-to-left cha
 [CLReq](https://www.w3.org/TR/clreq/) · [JLReq](https://www.w3.org/TR/jlreq/) · [KLReq](https://www.w3.org/TR/klreq/) · [ILReq](https://www.w3.org/TR/ilreq/) · [ALReq](https://www.w3.org/TR/alreq/) · [GB/T 15834-2011 (Chinese punctuation usage)](https://people.ubuntu.com/~happyaron/l10n/GB(T)15834-2011.html) · [Typotheque · Typesetting CJK](https://www.typotheque.com/articles/typesetting-cjk-text) · [The Type · 挤进推出避头尾](https://www.thetype.com/2018/05/14501/) · [Unicode Bidirectional Algorithm, UAX #9](https://www.unicode.org/reports/tr9/) · [CSS Text Module Level 4](https://www.w3.org/TR/css-text-4/) · [OpenType feature registry (palt and others)](https://learn.microsoft.com/en-us/typography/opentype/spec/featurelist)
 
 Every bundled font is listed in [Bundled Fonts — Attribution & License](../fonts/README.md).
+
+---
+
+The other notes, specimens and files:
+
+- [*Writing an Old Book in Code*](design-notes.md)
+- [*What a Passage Goes Through Before It Becomes a Card*](engineering-notes.md)
+- [*The Multilingual Specimen Book*](specimens.md)
+- [*The Twelve Papers*](papers.md)
+- [*Bundled Fonts — Attribution & License*](../fonts/README.md)
+- [Back to the README](../README.md)

@@ -31,3 +31,14 @@ copyright and Reserved Font Name in its embedded `name` table.
 
 Chinese fonts are subset to ≈ GB2312 ∪ Big5, Japanese to JIS levels 1 and 2, Korean keeps the full Hangul syllabary; Latin / Arabic / Urdu fonts are subset to their
 script ranges. Subsetting preserves each font's copyright in the `name` table, as OFL requires.
+
+---
+
+The other notes, specimens and files:
+
+- [*Writing an Old Book in Code*](../docs/design-notes.md)
+- [*What a Passage Goes Through Before It Becomes a Card*](../docs/engineering-notes.md)
+- [*The Multilingual Specimen Book*](../docs/specimens.md)
+- [*The Multilingual Typography Registry*](../docs/typography.md)
+- [*The Twelve Papers*](../docs/papers.md)
+- [Back to the README](../README.md)

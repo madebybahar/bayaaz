@@ -181,3 +181,14 @@ Courier 13.5 号，行高 1.7，左对齐，保留换行，不断词；压过所
 [CLReq](https://www.w3.org/TR/clreq/) · [JLReq](https://www.w3.org/TR/jlreq/) · [KLReq](https://www.w3.org/TR/klreq/) · [ILReq](https://www.w3.org/TR/ilreq/) · [ALReq](https://www.w3.org/TR/alreq/) · [GB/T 15834-2011 标点符号用法](https://people.ubuntu.com/~happyaron/l10n/GB(T)15834-2011.html) · [Typotheque · Typesetting CJK](https://www.typotheque.com/articles/typesetting-cjk-text) · [The Type · 挤进推出避头尾](https://www.thetype.com/2018/05/14501/) · [Unicode 双向算法 UAX #9](https://www.unicode.org/reports/tr9/) · [CSS Text Module Level 4](https://www.w3.org/TR/css-text-4/) · [OpenType 特性登记（palt 等）](https://learn.microsoft.com/en-us/typography/opentype/spec/featurelist)
 
 打包的每一款字体，见[内置字体 · 归属与授权](../fonts/README.zh.md)。
+
+---
+
+其余的手记、样张与档案：
+
+- 《[用代码写一本旧书](design-notes.zh.md)》
+- 《[一段网页文字，进卡片之前经历了什么](engineering-notes.zh.md)》
+- 《[多语种样张册](specimens.zh.md)》
+- 《[十二种纸样考据](papers.zh.md)》
+- 《[内置字体 · 归属与授权](../fonts/README.zh.md)》
+- [回到首页](../README.zh.md)

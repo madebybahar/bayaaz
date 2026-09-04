@@ -34,3 +34,14 @@
 | **Cuneiform** | 润湿 | 泥板未干时以水润面，抹平重刻；湿泥色深，选中变深，是备改的一块 | `rgba(74,40,16,.24)` |
 
 各款的真卡样张，见《[多语种样张册](specimens.zh.md)》。
+
+---
+
+其余的手记、样张与档案：
+
+- 《[用代码写一本旧书](design-notes.zh.md)》
+- 《[一段网页文字，进卡片之前经历了什么](engineering-notes.zh.md)》
+- 《[多语种样张册](specimens.zh.md)》
+- 《[多语种排版清单](typography.zh.md)》
+- 《[内置字体 · 归属与授权](../fonts/README.zh.md)》
+- [回到首页](../README.zh.md)

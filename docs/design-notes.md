@@ -221,3 +221,14 @@ I often imagined what it would look like to be an independent developer, and I a
 Now I can write my own development log, line by line. Without quite noticing, I have come a long way toward what I wanted then. What I am making now is what I wanted to make before the wave of AI arrived; the arrival only let me start sooner. It is like the year I put a foreign-language school down for every choice, and the year after graduation when every résumé I sent went to the cultural sector: I have been living out my dream all along.
 
 — Bahar
+
+---
+
+The other notes, specimens and files:
+
+- [*What a Passage Goes Through Before It Becomes a Card*](engineering-notes.md)
+- [*The Multilingual Specimen Book*](specimens.md)
+- [*The Multilingual Typography Registry*](typography.md)
+- [*The Twelve Papers*](papers.md)
+- [*Bundled Fonts — Attribution & License*](../fonts/README.md)
+- [Back to the README](../README.md)

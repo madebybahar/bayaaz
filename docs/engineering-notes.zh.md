@@ -95,3 +95,14 @@ MV3 里没有常驻的后台：service worker 约五分钟空闲就被杀，重�
 ---
 
 — Bahar
+
+---
+
+其余的手记、样张与档案：
+
+- 《[用代码写一本旧书](design-notes.zh.md)》
+- 《[多语种样张册](specimens.zh.md)》
+- 《[多语种排版清单](typography.zh.md)》
+- 《[十二种纸样考据](papers.zh.md)》
+- 《[内置字体 · 归属与授权](../fonts/README.zh.md)》
+- [回到首页](../README.zh.md)

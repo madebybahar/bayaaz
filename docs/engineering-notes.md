@@ -95,3 +95,14 @@ The last step turns the card into an image and a filename.
 ---
 
 — Bahar
+
+---
+
+The other notes, specimens and files:
+
+- [*Writing an Old Book in Code*](design-notes.md)
+- [*The Multilingual Specimen Book*](specimens.md)
+- [*The Multilingual Typography Registry*](typography.md)
+- [*The Twelve Papers*](papers.md)
+- [*Bundled Fonts — Attribution & License*](../fonts/README.md)
+- [Back to the README](../README.md)

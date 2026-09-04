@@ -101,3 +101,14 @@ Two lines were never crossed: every passage stands in the public domain (seventy
 **Typography**: a bookplate set centred, no drop cap; the source in copperplate script, the date in old-style figures, 2026 · 06 · 27.
 
 **The paper**: lock up your libraries; a bookplate of one's own, a library of one's own.
+
+---
+
+The other notes, specimens and files:
+
+- [*Writing an Old Book in Code*](design-notes.md)
+- [*What a Passage Goes Through Before It Becomes a Card*](engineering-notes.md)
+- [*The Multilingual Typography Registry*](typography.md)
+- [*The Twelve Papers*](papers.md)
+- [*Bundled Fonts — Attribution & License*](../fonts/README.md)
+- [Back to the README](../README.md)

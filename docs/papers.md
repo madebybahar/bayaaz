@@ -34,3 +34,14 @@ The highlight behind a selected passage is gold-brown by default. On five papers
 | **Cuneiform** | wetted clay | a scribe wets a still-damp unfired tablet to smooth it and cut again; wet clay is darker, so the selection darkens, a patch ready to be rewritten | `rgba(74,40,16,.24)` |
 
 Real cards on these papers are collected in [*The Multilingual Specimen Book*](specimens.md).
+
+---
+
+The other notes, specimens and files:
+
+- [*Writing an Old Book in Code*](design-notes.md)
+- [*What a Passage Goes Through Before It Becomes a Card*](engineering-notes.md)
+- [*The Multilingual Specimen Book*](specimens.md)
+- [*The Multilingual Typography Registry*](typography.md)
+- [*Bundled Fonts — Attribution & License*](../fonts/README.md)
+- [Back to the README](../README.md)

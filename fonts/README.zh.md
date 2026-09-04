@@ -26,3 +26,14 @@ English version: [README.md](./README.md)
 - **侧边栏**（`sidebar/sidebar.css`）：Cormorant Garamond（界面与正文衬线），非拉丁卡另用上述多语种字体。
 
 中文字体按 ≈ GB2312 ∪ Big5 子集化，日文按 JIS 第一、二水准，韩文保留全部谚文；拉丁／阿拉伯／乌尔都字体按各自文字区段子集化。子集化保留 `name` 表中的版权信息，OFL 要求如此。
+
+---
+
+其余的手记、样张与档案：
+
+- 《[用代码写一本旧书](../docs/design-notes.zh.md)》
+- 《[一段网页文字，进卡片之前经历了什么](../docs/engineering-notes.zh.md)》
+- 《[多语种样张册](../docs/specimens.zh.md)》
+- 《[多语种排版清单](../docs/typography.zh.md)》
+- 《[十二种纸样考据](../docs/papers.zh.md)》
+- [回到首页](../README.zh.md)
