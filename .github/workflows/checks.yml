@@ -1,0 +1,105 @@
+name: checks
+
+# Four guards, no dependencies. Everything below runs on Node's built-ins and
+# shell — this repo ships with no package.json and no node_modules on purpose
+# (clone it, load unpacked, it runs), and the CI keeps that property.
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # need tags for the version check
+
+      # ── 1. JavaScript syntax ────────────────────────────────────────────────
+      - name: JS syntax
+        run: |
+          fail=0
+          while IFS= read -r f; do
+            if node --check "$f" 2>/dev/null; then
+              echo "  ok    $f"
+            else
+              echo "  FAIL  $f"; node --check "$f" 2>&1 | sed 's/^/        /'; fail=1
+            fi
+          done < <(find . -name '*.js' -not -path './.git/*')
+          exit $fail
+
+      # ── 2. manifest.json is valid JSON and has what Chrome needs ────────────
+      - name: manifest.json
+        run: |
+          node -e '
+            const m = JSON.parse(require("fs").readFileSync("manifest.json","utf8"));
+            const need = ["manifest_version","name","version","permissions"];
+            const missing = need.filter(k => !(k in m));
+            if (missing.length) { console.error("  missing keys:", missing.join(", ")); process.exit(1); }
+            if (m.manifest_version !== 3) { console.error("  manifest_version is not 3"); process.exit(1); }
+            if (!/^\d+(\.\d+){1,3}$/.test(m.version)) { console.error("  bad version string:", m.version); process.exit(1); }
+            console.log("  ok    manifest v" + m.version + " (MV" + m.manifest_version + ")");
+          '
+
+      # ── 3. 🔴 Offline guard ─────────────────────────────────────────────────
+      # The extension promises, in its privacy policy and on its site, that it
+      # "makes no network requests at all". A remote font or CDN script would
+      # break that promise silently — the extension keeps working, the sentence
+      # just quietly becomes false. This is the check that has no symptoms
+      # without it, which is exactly why a machine should hold it.
+      - name: Offline guard
+        run: |
+          fail=0
+
+          # 3a. Remote resource references in shipped code (docs/ and third-party
+          #     lib/ excluded; lib is vendored MIT code, audited on the way in).
+          hits=$(grep -rnE '@import|url\(\s*["'"'"']?https?:|<(script|link|img|iframe)[^>]+(src|href)=["'"'"']https?:' \
+                   --include='*.js' --include='*.css' --include='*.html' \
+                   --exclude-dir=lib --exclude-dir=docs --exclude-dir=.git . 2>/dev/null || true)
+          if [ -n "$hits" ]; then
+            echo "  FAIL  remote resource reference in shipped code:"
+            echo "$hits" | sed 's/^/        /'
+            fail=1
+          else
+            echo "  ok    no remote resource references"
+          fi
+
+          # 3b. Network APIs in first-party code. lib/ is exempt: html-to-image
+          #     contains a fetch() for inlining external assets, but every asset
+          #     this extension gives it is already local or a data: URI.
+          net=$(grep -rnE '\bfetch\s*\(|XMLHttpRequest|navigator\.sendBeacon|new\s+WebSocket|new\s+EventSource' \
+                  --include='*.js' --exclude-dir=lib --exclude-dir=docs --exclude-dir=.git . 2>/dev/null || true)
+          if [ -n "$net" ]; then
+            echo "  FAIL  network API in first-party code:"
+            echo "$net" | sed 's/^/        /'
+            fail=1
+          else
+            echo "  ok    no network APIs outside lib/"
+          fi
+
+          # 3c. Fonts must all be local files.
+          remote_font=$(grep -rn "@font-face" -A 4 --include='*.css' --exclude-dir=lib --exclude-dir=.git . 2>/dev/null \
+                          | grep -E 'src:.*https?:' || true)
+          if [ -n "$remote_font" ]; then
+            echo "  FAIL  remote font:"; echo "$remote_font" | sed 's/^/        /'; fail=1
+          else
+            echo "  ok    all @font-face sources are local"
+          fi
+
+          exit $fail
+
+      # ── 4. manifest version vs latest tag (advisory) ────────────────────────
+      # Not a failure: the version is usually bumped before the tag is cut. This
+      # only reminds you that a release is owed.
+      - name: Version / tag
+        run: |
+          v=$(node -p "require('./manifest.json').version")
+          t=$(git tag --sort=-v:refname | head -1)
+          echo "  manifest: v$v"
+          echo "  latest tag: ${t:-（none）}"
+          if [ "v$v" = "$t" ]; then
+            echo "  ok    in sync"
+          else
+            echo "  note  manifest v$v has no matching tag — a release may be owed."
+          fi
