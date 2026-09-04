@@ -94,7 +94,7 @@ The themes come as two moods: Parchment for daylight, Ink-Black for late nights.
 
 ## 2. A museum you can download
 
-> Software has existed for barely a century, and art has been accumulating for millennia. Draw from that.
+> Software has existed for barely eighty years, and art has been accumulating for millennia. Draw from that.
 
 Making them was also an act of collecting and curating, a miniature museum exhibition: writing surfaces from many places and periods, remade into papers you can interact with, download, print, and paste into a notebook.
 
