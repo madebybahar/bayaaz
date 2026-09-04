@@ -143,7 +143,7 @@ Bayaaz（بیاض），词根是阿拉伯语的 ب-ي-ض（b-y-ḍ），原意�
 ## 安装
 
 - **[Chrome 应用商店](https://chromewebstore.google.com/detail/bayaaz-markdown-web-clipp/beillbnfablabpoponiihpiefhgkphnd)**：Chrome 116+。
-- **手动安装**：从 [Releases](../../releases) 下载 zip → 打开 `chrome://extensions` → 开启「开发者模式」→「加载已解压的扩展程序」
+- **手动安装**：从 [Releases](../../releases) 下载 zip → 解压 → 打开 `chrome://extensions` → 开启「开发者模式」→「加载已解压的扩展程序」→ 选中解压出的文件夹
 
 <details>
 <summary><b>已知边界</b></summary>

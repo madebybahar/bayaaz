@@ -143,7 +143,7 @@ Full policy: [Privacy Policy](https://visual-story-ai.notion.site/Bayaaz-Privacy
 ## Install
 
 - **[Chrome Web Store](https://chromewebstore.google.com/detail/bayaaz-markdown-web-clipp/beillbnfablabpoponiihpiefhgkphnd)**: Chrome 116+.
-- **Manual**: download the zip from [Releases](../../releases) → open `chrome://extensions` → enable *Developer mode* → *Load unpacked*
+- **Manual**: download the zip from [Releases](../../releases) → unzip it → open `chrome://extensions` → enable *Developer mode* → *Load unpacked* → select the unzipped folder
 
 <details>
 <summary><b>Known boundaries</b></summary>
