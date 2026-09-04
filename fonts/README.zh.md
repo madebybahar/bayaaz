@@ -1,6 +1,6 @@
 # 内置字体 · 归属与授权
 
-本目录内全部字体随扩展本地打包（离线，无远程 / CDN），均以 **SIL Open Font License 1.1**（OFL）授权。许可证全文见 [`CJK-OFL-LICENSE.txt`](./CJK-OFL-LICENSE.txt)；各字体的版权与保留字体名（Reserved Font Name）均保留在其内嵌 `name` 表中。
+本目录内全部字体随扩展本地打包（离线，无远程 / CDN），均以 **SIL Open Font License 1.1**（OFL）授权。许可证全文见 [`CJK-OFL-LICENSE.txt`](./CJK-OFL-LICENSE.txt) 与 [`ZenOldMincho-OFL.txt`](./ZenOldMincho-OFL.txt)；各字体的版权与保留字体名（Reserved Font Name）均保留在其内嵌 `name` 表中。
 
 English version: [README.md](./README.md)
 
@@ -12,13 +12,13 @@ English version: [README.md](./README.md)
 | `Caveat-Regular/-Bold.woff2` | Caveat | © The Caveat Project Authors（Impallari Type / Cyreal） | github.com/googlefonts/caveat |
 | `PinyonScript-latin.woff2` | Pinyon Script | © The Pinyon Script Project Authors（Nicole Fally） | Google Fonts |
 | `Vazirmatn-subset.woff2` | Vazirmatn（阿拉伯文／波斯文） | © Saber Rastikerdar | github.com/rastikerdar/vazirmatn |
-| `NotoNastaliqUrdu-subset.woff2` | Noto Nastaliq Urdu | © The Noto Project Authors（Google） | github.com/notofonts/nastaliq |
+| `NotoNastaliqUrdu-subset.woff2` | Noto Nastaliq Urdu（乌尔都文） | © The Noto Project Authors（Google） | github.com/notofonts/nastaliq |
 | `NanumMyeongjo-subset.woff2` | Nanum Myeongjo（韩文） | © NAVER Corporation | hangeul.naver.com |
 | `NotoSerifDevanagari-subset.woff2` | Noto Serif Devanagari（天城文） | © The Noto Project Authors（Google） | github.com/notofonts/devanagari |
 | `WenJinMincho-subset.woff2` | 文津宋体 WenJin Mincho | © takushun-wu | github.com/takushun-wu/WenJinMincho |
 | `LXGWWenKai-subset.woff2` | 霞鹜文楷 LXGW WenKai | © The LXGW WenKai Project Authors | github.com/lxgw/LxgwWenkai |
 | `ZhuqueFangsong-subset.woff2` | 朱雀仿宋 Zhuque Fangsong | © TrionesType | github.com/TrionesType/zhuque |
-| `ZenOldMincho-subset.woff2` | Zen Old Mincho（日文） | © The Zen Old Mincho Project Authors（Yoshimichi Ohira）——全文见 [`ZenOldMincho-OFL.txt`](./ZenOldMincho-OFL.txt) | github.com/googlefonts/zen-oldmincho |
+| `ZenOldMincho-subset.woff2` | Zen Old Mincho（日文） | © The Zen Old Mincho Project Authors（Yoshimichi Ohira） | github.com/googlefonts/zen-oldmincho |
 
 ## 用在哪里
 

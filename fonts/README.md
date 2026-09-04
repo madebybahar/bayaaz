@@ -2,7 +2,7 @@
 
 All fonts in this directory are bundled locally (offline, no remote / CDN) and are
 licensed under the **SIL Open Font License 1.1** (OFL). 中文版：[README.zh.md](./README.zh.md)。 The full license text is in
-[`CJK-OFL-LICENSE.txt`](./CJK-OFL-LICENSE.txt); each font also carries its own
+[`CJK-OFL-LICENSE.txt`](./CJK-OFL-LICENSE.txt) and [`ZenOldMincho-OFL.txt`](./ZenOldMincho-OFL.txt); each font also carries its own
 copyright and Reserved Font Name in its embedded `name` table.
 
 | File | Font | Copyright / Author | Source |
@@ -13,13 +13,13 @@ copyright and Reserved Font Name in its embedded `name` table.
 | `Caveat-Regular/-Bold.woff2` | Caveat | © The Caveat Project Authors (Impallari Type / Cyreal) | github.com/googlefonts/caveat |
 | `PinyonScript-latin.woff2` | Pinyon Script | © The Pinyon Script Project Authors (Nicole Fally) | Google Fonts |
 | `Vazirmatn-subset.woff2` | Vazirmatn (Arabic / Persian) | © Saber Rastikerdar | github.com/rastikerdar/vazirmatn |
-| `NotoNastaliqUrdu-subset.woff2` | Noto Nastaliq Urdu | © The Noto Project Authors (Google) | github.com/notofonts/nastaliq |
+| `NotoNastaliqUrdu-subset.woff2` | Noto Nastaliq Urdu (Urdu) | © The Noto Project Authors (Google) | github.com/notofonts/nastaliq |
 | `NanumMyeongjo-subset.woff2` | Nanum Myeongjo (Korean) | © NAVER Corporation | hangeul.naver.com |
-| `NotoSerifDevanagari-subset.woff2` | Noto Serif Devanagari (Hindi) | © The Noto Project Authors (Google) | github.com/notofonts/devanagari |
+| `NotoSerifDevanagari-subset.woff2` | Noto Serif Devanagari (Devanagari) | © The Noto Project Authors (Google) | github.com/notofonts/devanagari |
 | `WenJinMincho-subset.woff2` | WenJin Mincho 文津宋体 | © takushun-wu | github.com/takushun-wu/WenJinMincho |
 | `LXGWWenKai-subset.woff2` | LXGW WenKai 霞鹜文楷 | © The LXGW WenKai Project Authors | github.com/lxgw/LxgwWenkai |
 | `ZhuqueFangsong-subset.woff2` | Zhuque Fangsong 朱雀仿宋 | © TrionesType | github.com/TrionesType/zhuque |
-| `ZenOldMincho-subset.woff2` | Zen Old Mincho ゼン old明朝 (Japanese) | © The Zen Old Mincho Project Authors (Yoshimichi Ohira) — full text in [`ZenOldMincho-OFL.txt`](./ZenOldMincho-OFL.txt) | github.com/googlefonts/zen-oldmincho |
+| `ZenOldMincho-subset.woff2` | Zen Old Mincho (Japanese) | © The Zen Old Mincho Project Authors (Yoshimichi Ohira) | github.com/googlefonts/zen-oldmincho |
 
 ## Where they're used
 - **Export page** (`export/samplebook-fonts.css` + `export/samplebook.html`): Cormorant,
