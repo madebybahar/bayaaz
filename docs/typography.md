@@ -157,7 +157,6 @@ The colophon date follows each script's own form; Japanese and Korean write ever
 | Urdu | extended digits with the era mark `ء`, Gregorian; word spacing 2 px, line height 2.1 | `۲۸ جون ۲۰۲۶ء` |
 | Latin | old-style figures, 4 and 6 with descenders | `2026 · 06 · 04` |
 | Japanese, Korean and others | as the Latin card | `2026 · 06 · 04` |
-Hebrew enters the right-to-left tier without a bundled font, and its colophon follows the Arabic form.
 
 ### Placement and margins
 
