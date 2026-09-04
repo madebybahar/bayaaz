@@ -1,9 +1,8 @@
 # Bundled Libraries — Attribution & License
 
-The two libraries in this directory are bundled locally (offline, no remote / CDN), the
-same way the [bundled fonts](../fonts/README.md) are. 中文版：[README.zh.md](./README.zh.md)。 Both are **MIT** licensed;
-the full texts are in [`turndown-LICENSE.txt`](./turndown-LICENSE.txt) and
-[`html-to-image-LICENSE.txt`](./html-to-image-LICENSE.txt).
+The two libraries in this directory are bundled locally (offline, no remote / CDN), the same way the [bundled fonts](../fonts/README.md) are. Both are **MIT** licensed; the full texts are in [`turndown-LICENSE.txt`](./turndown-LICENSE.txt) and [`html-to-image-LICENSE.txt`](./html-to-image-LICENSE.txt).
+
+中文版：[README.zh.md](./README.zh.md)
 
 | File | Library | Copyright / Author | Source |
 |---|---|---|---|

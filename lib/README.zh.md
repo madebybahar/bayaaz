@@ -1,8 +1,8 @@
 # 内置库 · 归属与授权
 
-本目录内的两个库随扩展本地打包（离线，无远程 / CDN），与[内置字体](../fonts/README.zh.md)的做法一致。
-English version: [README.md](./README.md)。两者均以 **MIT** 授权，许可证全文见
-[`turndown-LICENSE.txt`](./turndown-LICENSE.txt) 与 [`html-to-image-LICENSE.txt`](./html-to-image-LICENSE.txt)。
+本目录内的两个库随扩展本地打包（离线，无远程 / CDN），与[内置字体](../fonts/README.zh.md)的做法一致。两者均以 **MIT** 授权，许可证全文见 [`turndown-LICENSE.txt`](./turndown-LICENSE.txt) 与 [`html-to-image-LICENSE.txt`](./html-to-image-LICENSE.txt)。
+
+English version: [README.md](./README.md)
 
 | 文件 | 库 | 版权 / 作者 | 来源 |
 |---|---|---|---|
