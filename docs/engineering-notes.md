@@ -41,6 +41,8 @@ Turning HTML into Markdown has a few rules, most of them learned from particular
 
 ## 4. Protect first, then render
 
+The side panel renders Markdown without a library. `marked` and `markdown-it` turn Markdown into HTML in a single pass; here four things have to go in *mid-conversion*: placeholder protection, pangu spacing, the drop-cap decision, and no-break wrapping for technical identifiers — each needs to dictate where escaping happens, and a library seals that step off. So the chain is written by hand: 55 lines of block parsing, 85 inline, 42 to assemble.
+
 Inline Markdown's regexes maul each other: the italics rule eats underscores inside URLs, an `*` inside code reads as a bold marker.
 
 - **Extract, placehold, restore**: code, links, and technical identifiers are pulled out first, each leaving a NUL sentinel (`\x00C`, `\x00L`, `\x00N`), and every dangerous regex runs before they are returned class by class.
