@@ -1,0 +1,73 @@
+name: Bug report
+description: Something in Bayaaz behaves differently from what it promises.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Please don't paste private reading material.** Bayaaz works on whatever
+        page you are on, so the passage that triggered a bug may be something you
+        would rather not publish. A short invented passage that reproduces the same
+        problem is more useful here than the real one — and if the bug only happens
+        on one specific page, name the site rather than pasting its text.
+
+        Chinese is welcome; 中文提问没问题。
+
+  - type: input
+    id: version
+    attributes:
+      label: Bayaaz version
+      description: Shown on the extension's card at `chrome://extensions`.
+      placeholder: "1.4.1"
+    validations: {required: true}
+
+  - type: input
+    id: environment
+    attributes:
+      label: Chrome and OS
+      placeholder: "Chrome 141, macOS 15.2"
+    validations: {required: true}
+
+  - type: dropdown
+    id: script
+    attributes:
+      label: Writing system involved
+      description: Typesetting bugs are usually specific to one script.
+      options:
+        - Not script-specific
+        - Chinese
+        - Japanese
+        - Korean
+        - Devanagari (Hindi)
+        - Arabic
+        - Persian
+        - Urdu (Nastaliq)
+        - Vietnamese
+        - Latin
+        - Mixed / more than one
+    validations: {required: true}
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Select a paragraph on …
+        2. Open the side panel
+        3. Choose the Waka paper and export
+    validations: {required: true}
+
+  - type: textarea
+    id: outcome
+    attributes:
+      label: What you expected, and what happened instead
+    validations: {required: true}
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else
+      description: >
+        Screenshots of the card help a lot for typesetting bugs. Console output
+        from the side panel (right-click → Inspect) helps for everything else.
+    validations: {required: false}

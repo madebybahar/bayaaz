@@ -16,9 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
-          fetch-depth: 0   # need tags for the version check
+          fetch-depth: 0          # need tags for the version check
+          persist-credentials: false
 
       # ── 1. JavaScript syntax ────────────────────────────────────────────────
       - name: JS syntax
@@ -94,6 +95,49 @@ jobs:
           fi
 
           exit $fail
+
+      # ── 5. Every declared path resolves ─────────────────────────────────────
+      # A renamed or moved file leaves the manifest and the HTML pointing at
+      # nothing. Chrome fails silently on some of these, and the syntax check
+      # above cannot see them: it reads files, not references.
+      - name: References resolve
+        run: |
+          node -e '
+            const fs = require("fs"), path = require("path");
+            let bad = 0;
+            const check = (p, where) => {
+              if (fs.existsSync(p)) { console.log("  ok    " + where + " -> " + p); }
+              else { console.error("  FAIL  " + where + " -> " + p + " (missing)"); bad++; }
+            };
+
+            // 5a. manifest.json
+            const m = JSON.parse(fs.readFileSync("manifest.json", "utf8"));
+            if (m.background?.service_worker) check(m.background.service_worker, "background.service_worker");
+            (m.content_scripts || []).forEach((cs, i) => {
+              (cs.js  || []).forEach(f => check(f, `content_scripts[${i}].js`));
+              (cs.css || []).forEach(f => check(f, `content_scripts[${i}].css`));
+            });
+            if (m.side_panel?.default_path) check(m.side_panel.default_path, "side_panel.default_path");
+            Object.values(m.icons || {}).forEach(f => check(f, "icons"));
+            Object.values(m.action?.default_icon || {}).forEach(f => check(f, "action.default_icon"));
+            (m.web_accessible_resources || []).forEach((w, i) =>
+              (w.resources || []).forEach(f => { if (!f.includes("*")) check(f, `web_accessible_resources[${i}]`); }));
+
+            // 5b. local src/href inside shipped HTML (docs/ excluded)
+            const walk = d => fs.readdirSync(d, { withFileTypes: true }).flatMap(e => {
+              const p = path.join(d, e.name);
+              if (e.isDirectory()) return [".git", "docs", "node_modules", ".github"].includes(e.name) ? [] : walk(p);
+              return e.name.endsWith(".html") ? [p] : [];
+            });
+            for (const file of walk(".")) {
+              const html = fs.readFileSync(file, "utf8");
+              for (const [, url] of html.matchAll(/<(?:script|link|img)[^>]+(?:src|href)="([^"]+)"/g)) {
+                if (/^(https?:|\/\/|data:|#|mailto:)/.test(url)) continue;
+                check(path.join(path.dirname(file), url.split("?")[0]), file);
+              }
+            }
+            if (bad) { console.error(`  ${bad} broken reference(s)`); process.exit(1); }
+          '
 
       # ── 4. manifest version vs latest tag (advisory) ────────────────────────
       # Not a failure: the version is usually bumped before the tag is cut. This
