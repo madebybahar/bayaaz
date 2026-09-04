@@ -176,7 +176,7 @@ At university, our Pakistani teacher, a grandfatherly man, gave us our names. He
 
 Bayaaz بیاض and Bahar بہار begin with the same letter, ب. A notebook, and the one who writes in it.
 
-One person made this, for everyone who still copies passages by hand. The words belong to the people who wrote them; Bayaaz simply helps you keep them close.
+One person made this, for everyone who still copies passages by hand.
 
 — Bahar
 
