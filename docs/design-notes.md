@@ -188,8 +188,6 @@ Modern rules come from documents; the older ones are measured out of old books; 
 
 ### The fine points of the page: drop caps and bold
 
-Two old crafts, easiest to get wrong.
-
 - **Four cases bar the drop cap**: an excerpt opening with punctuation, one opening with a digit (chapter numbers, years, statistics, where a giant hanging numeral breaks the old-book look), code cards (a giant hanging `#` breaks the meaning), and joined scripts (wrapping the first letter swallows it whole). The first character must also be an ideograph or a Latin letter, with the extended ranges included, since Vietnamese Đ was once missed and the cap landed on the second letter.
 - **Bold is never synthesised**: a Mincho face is built on the contrast between thin horizontals and thick verticals, and the browser's synthetic bold flattens it until a passage reads as a sans, the old-book air gone. Where a real bold family exists it is used, and where none does the regular weight stays.
 
