@@ -1,0 +1,585 @@
+/* ── Parchment / 羊皮纸 Theme ───────────────────────────────────────────────── */
+/* Inspired by Rembrandt, Vermeer, and medieval illuminated manuscripts.       */
+/* Warm light, thick texture, ink on vellum — the Dutch Golden Age.           */
+
+/* ── Design tokens ──────────────────────────────────────────────────────────── */
+/* Isolate all colour/type decisions here so switching skins = swapping tokens  */
+[data-theme="parchment"] {
+  /* Background layers */
+  --bg-page:          #ece0c2;   /* 外层羊皮纸 */
+  --bg-card:          #f4e8c8;   /* 卡片比外层亮一档 */
+  --bg-subtitle:      #e1cf9f;   /* 副标题栏更深一档 */
+  --bg-border-soft:   #d4bf85;
+  --bg-border:        #c4ad7e;
+
+  /* Text */
+  --text-primary:     #3a2618;   /* 深棕，正文 */
+  --text-secondary:   #6b4a2a;   /* 中棕，次级 */
+  --text-italic:      #4a3018;
+  --text-dotted:      #b89968;   /* 虚线分隔 */
+
+  /* Accent */
+  --accent:           #8b2929;   /* 深红，主色 */
+  --accent-dark:      #5e1a1a;
+  --accent-light:     #f1dfb8;
+
+  /* Font families */
+  --font-serif-en:    'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+  --font-serif-cn:    'Songti TC', 'STSong', 'Noto Serif TC', serif;
+
+  /* ── Aliases wired to base system ── */
+  --bg-primary:       var(--bg-page);
+  --bg-secondary:     #ddd3ba;
+  --bg-card:          #f4e8c8;
+  --text-muted:       #9e7b58;
+  --border-color:     var(--bg-border);
+  --accent-color:     var(--accent);
+  --accent-hover:     var(--accent-dark);
+  --accent-gold:      #B8922A;
+  --drag-handle-color:#A08860;
+  --header-bg:        var(--bg-subtitle);
+  --footer-bg:        var(--bg-subtitle);
+  --btn-primary-text: var(--accent-light);
+  --btn-secondary-bg: transparent;
+  --border-radius:    2px;
+
+  /* Card shadow */
+  --shadow-card:
+    0 3px 12px rgba(58, 38, 24, 0.10),
+    0 1px 4px  rgba(58, 38, 24, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+
+  /* ── Palette dots — 4 actual theme colours shown in the icon ── */
+  --palette-dot-1:    var(--accent);       /* deep red   */
+  --palette-dot-2:    #B8922A;             /* amber      */
+  --palette-dot-3:    #5C3A1E;             /* dark brown */
+  --palette-dot-4:    var(--text-primary); /* ink        */
+
+  /* ── Typography ──
+     Strategy C (mixed): CJK-first — Songti TC covers Chinese glyphs; EB Garamond
+     picks up Latin characters that Songti doesn't provide, keeping mixed text cohesive.
+     Strategy B (UI only): English-first stack used on buttons, meta, expand labels. */
+
+  /* Card / body text — Chinese-first (strategy C) */
+  --font-body:
+    'Songti TC', 'STSong', '华文宋体',
+    'EB Garamond', 'Cormorant Garamond',
+    'Noto Serif TC',
+    'SimSun', 'NSimSun', '宋体',
+    /* Linux 标准中文衬线名（其余语种已打包/已列 Linux 名，中文是唯一缺口） */
+    'Noto Serif CJK SC', 'Noto Serif CJK TC', 'Source Han Serif SC',
+    /* 绝对兜底：已打包的 LXGW WenKai（@font-face 在 sidebar.css）——任何系统中文不豆腐块 */
+    'LXGW WenKai',
+    /* 内嵌阿拉伯系字符(如产品名 بیاض)→ 打包 Vazirmatn(Naskh),不看系统脸色；置拉丁/CJK 后只接管阿拉伯 */
+    'Vazirmatn',
+    Georgia, serif;
+
+  /* UI labels / buttons / meta — English-first (strategy B) */
+  --font-ui:
+    'EB Garamond', 'Cormorant Garamond',
+    'Songti TC', 'STSong',
+    Georgia, serif;
+
+  --font-mono: 'Courier New', Courier, monospace;
+}
+
+/* ── Parchment texture ── */
+[data-theme="parchment"] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.62' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0.3'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23p)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 220px 220px;
+}
+
+/* ── Header (副标题栏): double rule + inset shadow ── */
+[data-theme="parchment"] .sidebar-header {
+  background: var(--bg-subtitle);
+  border-bottom: none;
+  /* Two hair-line rules below + top light (被压住的层叠感) */
+  box-shadow:
+    0 1px 0 var(--bg-border),
+    0 2px 0 rgba(196, 173, 126, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -4px 10px rgba(255, 255, 255, 0.06);
+}
+
+/* ── Section divider: double line + central red diamond ── */
+[data-theme="parchment"] .section-divider {
+  display: flex;
+  background: var(--bg-page);
+}
+
+[data-theme="parchment"] .divider-rule {
+  height: 5px;
+  border-top: 0.8px solid var(--bg-border);
+  border-bottom: 0.4px solid rgba(196, 173, 126, 0.5);
+  align-self: center;
+}
+
+[data-theme="parchment"] .divider-gem {
+  font-size: 9px;
+  color: var(--accent);
+}
+
+/* ── Delete button: align with card's inner padding ── */
+[data-theme="parchment"] .delete-btn {
+  top: 10px;
+  right: 12px;
+}
+
+/* ── Cards ── */
+[data-theme="parchment"] .fragment-card {
+  background: var(--bg-card);
+  border: none;
+  padding: 14px 20px 14px 22px;
+  box-shadow:
+    0 4px 20px rgba(58, 38, 24, 0.09),
+    0 2px 6px  rgba(58, 38, 24, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* Micro-rotation — "posted note" feel, cycles every 3 cards */
+[data-theme="parchment"] .fragment-card:nth-child(3n+2) { transform: rotate(-0.35deg); }
+[data-theme="parchment"] .fragment-card:nth-child(3n)   { transform: rotate(0.3deg); }
+[data-theme="parchment"] .fragment-card:nth-child(3n+1) { transform: rotate(-0.2deg); }
+
+/* Return to flat on hover */
+[data-theme="parchment"] .fragment-card:hover {
+  transform: rotate(0deg);
+  transition: transform 0.2s ease, box-shadow 0.15s;
+  box-shadow:
+    0 6px 24px rgba(58, 38, 24, 0.12),
+    0 3px 8px  rgba(58, 38, 24, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* Left deep-red accent line */
+[data-theme="parchment"] .fragment-card::before {
+  content: '';
+  position: absolute;
+  left: 9px;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  background: rgba(139, 41, 41, 0.42);
+  border-radius: 1px;
+}
+
+/* ── Leading heading — centered small-caps label with flanking rules ── */
+[data-theme="parchment"] .card-text .heading-leading {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: var(--accent);
+  text-align: center;
+  margin: 4px 0 14px;
+  padding: 0 24px;
+  position: relative;
+}
+
+[data-theme="parchment"] .card-text .heading-leading::before,
+[data-theme="parchment"] .card-text .heading-leading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 28px;
+  height: 0.5px;
+  background: var(--accent);
+}
+[data-theme="parchment"] .card-text .heading-leading::before { left: 0; }
+[data-theme="parchment"] .card-text .heading-leading::after  { right: 0; }
+
+/* ── Section heading — collateral h2/h3 that introduces content below ── */
+/* Latin text gets true EB Garamond italic; CJK stays upright via font-synthesis:none */
+[data-theme="parchment"] .card-text .heading-section {
+  font-family: var(--font-ui);
+  font-size: 12px;           /* raised from 11px — was smaller than 14.5px body */
+  font-style: italic;        /* Latin/§ → true EB Garamond italic letterforms */
+  font-synthesis: none;      /* CJK stays upright — no oblique synthesis */
+  font-weight: normal;
+  color: var(--text-secondary);
+  margin: 1em 0 0.3em;
+  letter-spacing: 0.5px;
+}
+
+[data-theme="parchment"] .card-text .heading-section::before {
+  content: '§\00a0';  /* § + non-breaking space */
+  color: var(--accent);
+  /* inherits font-style: italic → EB Garamond § gets true italic form */
+}
+
+/* First-child reset — margin-top is only meaningful between blocks, not at card top */
+[data-theme="parchment"] .card-text .heading-leading:first-child { margin-top: 0; }
+[data-theme="parchment"] .card-text .heading-section:first-child  { margin-top: 0; }
+
+/* ── Typography — scene C: Chinese-dominant mixed content ── */
+[data-theme="parchment"] .card-text {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.95;           /* 中文需要大行高 1.85–2.0 */
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+  /* Oldstyle (lowercase) numbers — "200 PR", "2024 年" 数字有上下伸出，古典印刷标志 */
+  font-feature-settings: "onum" 1, "kern" 1;
+  /* 首尾悬挂标点，渐进增强 (Safari 支持；Chrome 暂在 flag 后) */
+  hanging-punctuation: first allow-end last;
+  /* 英文自动断词 — 最短词6字符，前缀≥3，后缀≥3；中文不受影响 */
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphenate-limit-chars: 6 3 3;
+  /* 不压缩中文标点（不开 halt/chws），保持古书宽松排列 */
+}
+
+/* Drop cap — JS injects <span class="drop-cap[--latin]"> around the first character */
+[data-theme="parchment"] .drop-cap {
+  display: block;
+  float: left;
+  font-size: 42px;
+  color: var(--accent);
+  font-family: 'Songti TC', 'STSong', '宋体', 'SimSun', Georgia, serif;
+  line-height: 0.82;
+  margin-right: 6px;
+  margin-bottom: -2px;
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Latin drop cap: Cormorant Garamond 48px compensates for smaller cap-height */
+[data-theme="parchment"] .drop-cap--latin {
+  font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
+  font-size: 48px;
+  line-height: 0.78;  /* Cormorant has taller ascenders, pull up slightly */
+}
+
+/* ── Title input: English-first (UI label context) ── */
+[data-theme="parchment"] .title-input {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* ── "Read more ›" expand ── */
+[data-theme="parchment"] .expand-btn {
+  font-size: 0;          /* hide the JS-set text */
+  color: transparent;
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding-top: 0;
+  margin-top: 10px;      /* expanded state: normal spacing below content */
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Collapsed state: float into the empty padding zone inside the gradient */
+[data-theme="parchment"] .card-text--collapsed ~ .expand-btn {
+  margin-top: -24px;
+}
+
+[data-theme="parchment"] .expand-btn[aria-expanded="false"]::before {
+  content: '— Read more ›';
+  font-size: 12px;
+  font-style: italic;
+  letter-spacing: 1.5px;
+  color: var(--accent);
+  /* English-first: pure Latin label, EB Garamond looks best */
+  font-family: var(--font-ui);
+}
+
+[data-theme="parchment"] .expand-btn[aria-expanded="true"]::before {
+  content: '— Show less';
+  font-size: 12px;
+  font-style: italic;
+  letter-spacing: 1.5px;
+  color: var(--text-secondary);
+  font-family: var(--font-ui);
+}
+
+/* ── Footer: double rule ── */
+[data-theme="parchment"] .export-footer {
+  background: var(--footer-bg);
+  border-top: none;
+  box-shadow:
+    0 -1px 0 var(--bg-border),
+    0 -2px 0 rgba(196, 173, 126, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+/* ── Excerpt count (left meta) — English-first ── */
+[data-theme="parchment"] .excerpt-count {
+  display: block;
+  flex: 0 0 auto;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-style: italic;
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+  align-self: center;
+}
+
+[data-theme="parchment"] .footer-actions .btn-primary {
+  flex: 0 0 auto;
+}
+
+/* ── Buttons: English-first, 11px small-caps, 2.5px tracking ──
+   Outer border (1.5px) + inset gap (2px) + inset inner thin line (1.5px at 3.5px)   */
+[data-theme="parchment"] .btn {
+  font-family: var(--font-ui);
+  border-radius: 2px;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  font-variant: small-caps;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  /* Oldstyle numbers in buttons too ("3 excerpts", "200") */
+  font-feature-settings: "onum" 1, "kern" 1;
+}
+
+/* Copy — ghost, deep-red double border */
+[data-theme="parchment"] .btn-secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+  /* gap uses footer bg colour to fake whitespace between the two lines */
+  box-shadow:
+    inset 0 0 0 2px var(--bg-subtitle),
+    inset 0 0 0 3.5px var(--accent);
+}
+
+[data-theme="parchment"] .btn-secondary:hover:not(:disabled) {
+  background: rgba(139, 41, 41, 0.06);
+  border-color: var(--accent-dark);
+  box-shadow:
+    inset 0 0 0 2px var(--bg-subtitle),
+    inset 0 0 0 3.5px var(--accent-dark);
+}
+
+/* Export — deep-red fill, cream inner line, dark outer ring */
+[data-theme="parchment"] .btn-primary {
+  background: var(--accent);
+  color: var(--accent-light);
+  border: 1.5px solid var(--accent-dark);
+  /* gap matches fill (invisible gap) + cream inner thin line */
+  box-shadow:
+    0 0 0 1px var(--accent-dark),
+    inset 0 0 0 2px var(--accent),
+    inset 0 0 0 3.5px rgba(241, 223, 184, 0.35);
+}
+
+[data-theme="parchment"] .btn-primary:hover:not(:disabled) {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+  box-shadow:
+    0 0 0 1px var(--accent-dark),
+    inset 0 0 0 2px var(--accent-dark),
+    inset 0 0 0 3.5px rgba(241, 223, 184, 0.25);
+}
+
+
+/* ── Lists ── */
+
+/* Unordered: ◆ hanging marker — optical top: 0.5em, hangs left into card margin */
+[data-theme="parchment"] .card-text ul.md-list {
+  padding-left: 1.4em;
+  list-style: none;
+}
+
+[data-theme="parchment"] .card-text ul.md-list li {
+  padding-left: 0;
+}
+
+[data-theme="parchment"] .card-text ul.md-list li::before {
+  content: '◆';
+  position: absolute;
+  left: -1.2em;
+  top: 1.125em;   /* first-line center: (line-height 1.95 / 2 / font-scale 0.6) − 0.5 ≈ 1.125em */
+  font-size: 0.6em;
+  line-height: 1;
+  font-family: Georgia, serif;  /* ◆ 在 Georgia 里更方正饱满，避免 Songti 偏窄 */
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+/* Ordered: lower-roman (≤7 items) / decimal (≥8 items, data-long="true") */
+[data-theme="parchment"] .card-text ol.md-list {
+  list-style: lower-roman;
+  padding-left: 2.5em;
+  counter-reset: none;
+}
+
+[data-theme="parchment"] .card-text ol.md-list li {
+  padding-left: 0.3em;
+}
+
+/* Hide the counter ::before — native ::marker takes over */
+[data-theme="parchment"] .card-text ol.md-list li::before {
+  content: none;
+}
+
+[data-theme="parchment"] .card-text ol.md-list li::marker {
+  /* rgba of --text-secondary (#6b4a2a) at 0.7 — ::marker doesn't support opacity */
+  color: rgba(107, 74, 42, 0.7);
+  font-size: 0.85em;
+}
+
+/* Long list auto-degrade to decimal */
+[data-theme="parchment"] .card-text ol.md-list[data-long="true"] {
+  list-style: decimal;
+}
+
+/* ── Blockquote: 楷书引文 ── */
+/* Latin text → EB Garamond italic; CJK → 楷体 (Kaiti), warmer and lighter than body */
+[data-theme="parchment"] .card-text blockquote {
+  margin: 10px 0 10px 20px;
+  color: var(--text-secondary);
+  font-style: italic;
+  font-family: "楷体", "KaiTi", "STKaiti", var(--font-body);
+  font-synthesis: none; /* CJK uses the actual 楷体 face, not a synthetic slant */
+  opacity: 0.85;
+}
+
+/* ── Inline code: 铅笔淡圈 — 打字机纸带贴片 ── */
+[data-theme="parchment"] .md-code {
+  background: rgba(139, 120, 100, 0.06);
+  border: 0.5px solid rgba(139, 120, 100, 0.15);
+  border-radius: 3px;
+  color: var(--text-primary);
+  padding: 2px 5px;
+  margin: 0 2px;
+}
+/* 围栏代码块同款墨色，但保块级呼吸——上面贴片的 padding/margin 曾把块压扁（2026-07-10 修） */
+[data-theme="parchment"] .md-codeblock {
+  background: rgba(139, 120, 100, 0.06);
+  border: 0.5px solid rgba(139, 120, 100, 0.15);
+  border-radius: 4px;
+  color: var(--text-primary);
+  padding: 10px 12px;
+  margin: 8px 0;
+}
+
+/* Links: inherit the unified base style — no override needed for parchment. */
+
+/* ── Scrollbar: 书脊红丝线 — 感应式洇染 ─────────────────────────────────── */
+/* Track: 7px total = 3px thumb + 4px floating gap (border trick)            */
+[data-theme="parchment"] .fragment-list::-webkit-scrollbar {
+  width: 7px;
+}
+[data-theme="parchment"] .fragment-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Base thumb structure — shared across all states */
+[data-theme="parchment"] .fragment-list::-webkit-scrollbar-thumb,
+[data-theme="parchment"] .fragment-list:not(.is-scrolling):hover::-webkit-scrollbar-thumb {
+  border-right: 4px solid transparent;
+  background-clip: padding-box;
+  border-radius: 10px;
+  background-color: transparent;
+  background-image: none;
+  box-shadow: none;
+}
+
+/* Fadeout: only after first scroll (.has-scrolled gates this).
+   Dwell 0–28% (~0.5s), then dissolve over remaining 1.3s — total 1.8s.     */
+[data-theme="parchment"] .fragment-list.has-scrolled:not(.is-scrolling)::-webkit-scrollbar-thumb {
+  animation: parchment-scrollbar-fadeout 1.8s ease forwards;
+}
+
+/* Fadein: 0.8s "缓缓洇出" — like ink bleeding into parchment */
+[data-theme="parchment"] .fragment-list.is-scrolling::-webkit-scrollbar-thumb {
+  background-color: rgba(139, 41, 41, 0.25);
+  box-shadow: 0 0 3px rgba(139, 41, 41, 0.12);
+  animation: parchment-scrollbar-fadein 0.8s ease forwards;
+}
+
+/* Thumb hover while scrolling: a whisper more presence */
+[data-theme="parchment"] .fragment-list.is-scrolling:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(139, 41, 41, 0.35);
+  animation: none;
+}
+
+@keyframes parchment-scrollbar-fadein {
+  from { background-color: transparent; box-shadow: none; }
+  to   { background-color: rgba(139, 41, 41, 0.25);
+         box-shadow: 0 0 3px rgba(139, 41, 41, 0.12); }
+}
+
+@keyframes parchment-scrollbar-fadeout {
+  0%   { background-color: rgba(139, 41, 41, 0.25); }
+  28%  { background-color: rgba(139, 41, 41, 0.25); } /* ~0.5s dwell */
+  100% { background-color: transparent; }
+}
+
+/* ── Empty state — Direction A: Bookplate ── */
+/* Base design uses CSS variables throughout — no overrides needed for parchment.
+   Colors: --accent-color (#8b2929), --text-primary (#3a2618), --text-secondary (#6b4a2a)
+   Foxing spots use the default warm brown already defined in sidebar.css. */
+
+/* ── Meta action (clear) — EB Garamond italic ── */
+[data-theme="parchment"] .meta-action {
+  font-family: var(--font-ui);
+  font-style: italic;
+  letter-spacing: 0.3px;
+}
+
+/* ── Inkwell button: 羊皮纸水印式，混合模式入纸 ── */
+[data-theme="parchment"] .palette-btn {
+  color: #a69b82;             /* 干枯草木色轮廓 */
+  opacity: 0.4;               /* 安静水印，若有若无 */
+  mix-blend-mode: multiply;   /* 与纸纹叠色，消除贴纸感 */
+  transition: opacity 0.35s ease, background 0.15s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+[data-theme="parchment"] .palette-btn:hover {
+  opacity: 1;                 /* 从纸面醒来 */
+  color: #a69b82;             /* 保持轮廓色，不随基础 hover 变化 */
+  background: transparent;    /* multiply 下不需要背景 */
+}
+
+[data-theme="parchment"] .inkwell-ink {
+  fill: rgba(139, 41, 41, 0.4);   /* 朱砂液面，淡而柔 */
+  filter: blur(0.2px);            /* 微晕：模拟墨在旧纸上的毛边 */
+}
+
+[data-theme="parchment"] .palette-btn:hover .inkwell-ink {
+  fill: rgba(139, 41, 41, 0.8);   /* hover 点亮，液色饱满 */
+}
+
+/* ── Links: 铅笔淡痕 on aged paper, cinnabar on hover ── */
+[data-theme="parchment"] .md-link {
+  text-decoration-color: rgba(58, 38, 24, 0.25);
+}
+
+[data-theme="parchment"] .md-link:hover {
+  text-decoration-color: #8b2929;
+}
+
+/* ── Theme popover ── */
+[data-theme="parchment"] .theme-popover {
+  background: var(--bg-card);
+  border-color: var(--bg-border);
+  box-shadow: 0 14px 28px rgba(40, 25, 10, 0.35);
+}
+
+[data-theme="parchment"] .theme-popover::before {
+  background: var(--bg-card);
+  border-color: var(--bg-border);
+}
+
+[data-theme="parchment"] .theme-popover-h {
+  font-family: var(--font-serif-en);
+}
+
+[data-theme="parchment"] .theme-name {
+  font-family: var(--font-serif-en);
+}
+

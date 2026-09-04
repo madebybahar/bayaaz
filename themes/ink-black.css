@@ -1,0 +1,607 @@
+/* ── Ink Black / 墨黑 Theme ─────────────────────────────────────────────────── */
+/* Dark paper, ember accent — lamp-lit study at midnight.                      */
+
+/* ── Design tokens ──────────────────────────────────────────────────────────── */
+[data-theme="ink-black"] {
+  /* Background layers */
+  --bg-page:          #1e1812;   /* 最深的墨底 */
+  --bg-card:          #2a241c;   /* 卡片稍浅 */
+  --bg-subtitle:      #2c2418;   /* 栏色（顶/底栏+按钮内嵌环）：提亮，与正文墨底 #1e1812 拉开 */
+
+  /* Text */
+  --text-primary:     #ede0c0;   /* 宣纸米白 */
+  --text-secondary:   #b8a070;   /* 中调赭石 */
+  --text-italic:      #d0b880;
+  --text-dotted:      #6a5a3a;
+
+  /* Accent */
+  --accent:           #d8704e;   /* 朱砂橙红 */
+  --accent-dark:      #b85a3e;
+  --accent-light:     #1e1812;
+
+  /* Font families */
+  --font-serif-en:    'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+  --font-serif-cn:    'Songti TC', 'STSong', 'Noto Serif TC', serif;
+
+  /* ── Aliases wired to base system ── */
+  --bg-primary:       var(--bg-page);
+  --bg-secondary:     #231d14;
+  --text-muted:       #7a6845;
+  --border-color:     #3a3020;
+  --accent-color:     var(--accent);
+  --accent-hover:     var(--accent-dark);
+  --header-bg:        var(--bg-subtitle);
+  --footer-bg:        var(--bg-subtitle);
+  --btn-primary-text:   #ede0c0;
+  --btn-secondary-bg:   transparent;
+  --border-radius:      2px;
+  --drag-handle-color:  rgba(237, 224, 192, 0.18);  /* near-invisible on dark card */
+
+  /* Card shadow — inner light instead of outer highlight */
+  --shadow-card:
+    0 3px 14px rgba(0, 0, 0, 0.45),
+    0 1px 4px  rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+  /* ── Palette dots ── */
+  --palette-dot-1:    var(--accent);       /* ember orange  */
+  --palette-dot-2:    #b8a070;             /* warm tan      */
+  --palette-dot-3:    #ede0c0;             /* parchment     */
+  --palette-dot-4:    #3a3020;             /* shadow border */
+
+  /* ── Typography ── */
+  --font-body:
+    'Songti TC', 'STSong', '华文宋体',
+    'EB Garamond', 'Cormorant Garamond',
+    'Noto Serif TC',
+    'SimSun', 'NSimSun', '宋体',
+    /* Linux 标准中文衬线名（其余语种已打包/已列 Linux 名，中文是唯一缺口） */
+    'Noto Serif CJK SC', 'Noto Serif CJK TC', 'Source Han Serif SC',
+    /* 绝对兜底：已打包的 LXGW WenKai——任何系统中文不豆腐块 */
+    'LXGW WenKai',
+    /* 内嵌阿拉伯系字符(如产品名 بیاض)→ 打包 Vazirmatn(Naskh),不看系统脸色；置拉丁/CJK 后只接管阿拉伯 */
+    'Vazirmatn',
+    Georgia, serif;
+
+  --font-ui:
+    'EB Garamond', 'Cormorant Garamond',
+    'Songti TC', 'STSong',
+    Georgia, serif;
+
+  --font-mono: 'Courier New', Courier, monospace;
+}
+
+/* ── Subtle grain overlay — night paper texture ── */
+[data-theme="ink-black"] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* ── Header ── */
+[data-theme="ink-black"] .sidebar-header {
+  background: var(--bg-subtitle);
+  border-bottom: none;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.5),                 /* 柔投影：标题块浮在正文之上 */
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);      /* 顶沿高光：面板立体感 */
+}
+
+/* ── Section divider ── */
+[data-theme="ink-black"] .section-divider {
+  display: flex;
+  background: var(--bg-page);
+}
+
+[data-theme="ink-black"] .divider-rule {
+  height: 5px;
+  border-top: 0.8px solid rgba(184, 160, 112, 0.42);  /* 双线·上：暖赭微光，深墨底可见 */
+  border-bottom: 0.6px solid rgba(184, 160, 112, 0.18); /* 双线·下：更弱的暖赭，成压印双线（原黑色暗影在深底上隐形→改暖赭） */
+  align-self: center;
+}
+
+[data-theme="ink-black"] .divider-gem {
+  font-size: 9px;
+  color: var(--accent);
+}
+
+/* ── Delete button ── */
+[data-theme="ink-black"] .delete-btn {
+  top: 10px;
+  right: 12px;
+}
+
+/* ── Cards ── */
+[data-theme="ink-black"] .fragment-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 14px 20px 14px 22px;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.4),
+    0 2px 6px  rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Micro-rotation — same "posted note" rhythm */
+[data-theme="ink-black"] .fragment-card:nth-child(3n+2) { transform: rotate(-0.35deg); }
+[data-theme="ink-black"] .fragment-card:nth-child(3n)   { transform: rotate(0.3deg); }
+[data-theme="ink-black"] .fragment-card:nth-child(3n+1) { transform: rotate(-0.2deg); }
+
+[data-theme="ink-black"] .fragment-card:hover {
+  transform: rotate(0deg);
+  transition: transform 0.2s ease, box-shadow 0.15s;
+  box-shadow:
+    0 6px 28px rgba(0, 0, 0, 0.5),
+    0 3px 10px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Card action buttons — dim idle, ember hover */
+[data-theme="ink-black"] .card-action-btn:hover {
+  background: rgba(216, 112, 78, 0.12);
+  border-color: rgba(237, 224, 192, 0.18);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  color: var(--accent);
+}
+[data-theme="ink-black"] .card-action-btn:active {
+  background: rgba(216, 112, 78, 0.22);
+  border-color: rgba(216, 112, 78, 0.35);
+  box-shadow: none;
+  color: var(--accent);
+}
+
+/* Left ember accent line */
+[data-theme="ink-black"] .fragment-card::before {
+  content: '';
+  position: absolute;
+  left: 9px;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  background: rgba(216, 112, 78, 0.35);
+  border-radius: 1px;
+}
+
+/* ── Leading heading ── */
+[data-theme="ink-black"] .card-text .heading-leading {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: var(--accent);
+  text-align: center;
+  margin: 4px 0 14px;
+  padding: 0 24px;
+  position: relative;
+}
+
+[data-theme="ink-black"] .card-text .heading-leading::before,
+[data-theme="ink-black"] .card-text .heading-leading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 28px;
+  height: 0.5px;
+  background: var(--accent);
+  opacity: 0.6;
+}
+[data-theme="ink-black"] .card-text .heading-leading::before { left: 0; }
+[data-theme="ink-black"] .card-text .heading-leading::after  { right: 0; }
+
+/* ── Section heading ── */
+[data-theme="ink-black"] .card-text .heading-section {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-style: italic;
+  font-synthesis: none;
+  font-weight: normal;
+  color: var(--text-secondary);
+  margin: 1em 0 0.3em;
+  letter-spacing: 0.5px;
+}
+
+[data-theme="ink-black"] .card-text .heading-section::before {
+  content: '§\00a0';
+  color: var(--accent);
+}
+
+[data-theme="ink-black"] .card-text .heading-leading:first-child { margin-top: 0; }
+[data-theme="ink-black"] .card-text .heading-section:first-child  { margin-top: 0; }
+
+/* ── Body typography ── */
+[data-theme="ink-black"] .card-text {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.95;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+  font-feature-settings: "onum" 1, "kern" 1;
+  hanging-punctuation: first allow-end last;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphenate-limit-chars: 6 3 3;
+}
+
+/* ── Drop cap ── */
+[data-theme="ink-black"] .drop-cap {
+  display: block;
+  float: left;
+  font-size: 42px;
+  color: var(--accent);
+  font-family: 'Songti TC', 'STSong', '宋体', 'SimSun', Georgia, serif;
+  line-height: 0.82;
+  margin-right: 6px;
+  margin-bottom: -2px;
+  font-weight: normal;
+  font-style: normal;
+}
+
+[data-theme="ink-black"] .drop-cap--latin {
+  font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
+  font-size: 48px;
+  line-height: 0.78;
+}
+
+/* ── Title input ── */
+[data-theme="ink-black"] .title-input {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* ── Expand button ── */
+[data-theme="ink-black"] .expand-btn {
+  font-size: 0;
+  color: transparent;
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding-top: 0;
+  margin-top: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+[data-theme="ink-black"] .card-text--collapsed ~ .expand-btn {
+  margin-top: -24px;
+}
+
+[data-theme="ink-black"] .expand-btn[aria-expanded="false"]::before {
+  content: '— Read more ›';
+  font-size: 12px;
+  font-style: italic;
+  letter-spacing: 1.5px;
+  color: var(--accent);
+  font-family: var(--font-ui);
+}
+
+[data-theme="ink-black"] .expand-btn[aria-expanded="true"]::before {
+  content: '— Show less';
+  font-size: 12px;
+  font-style: italic;
+  letter-spacing: 1.5px;
+  color: var(--text-secondary);
+  font-family: var(--font-ui);
+}
+
+/* ── Footer ── */
+[data-theme="ink-black"] .export-footer {
+  background: var(--footer-bg);
+  border-top: none;
+  box-shadow:
+    0 -2px 4px rgba(0, 0, 0, 0.5),                /* 柔投影（朝上）：底栏浮在正文之上，与顶栏对称 */
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);      /* 顶沿高光 */
+}
+
+/* ── Excerpt count ── */
+[data-theme="ink-black"] .excerpt-count {
+  display: block;
+  flex: 0 0 auto;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-style: italic;
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+  align-self: center;
+}
+
+[data-theme="ink-black"] .footer-actions .btn-primary {
+  flex: 0 0 auto;
+}
+
+/* ── Buttons ── */
+[data-theme="ink-black"] .btn {
+  font-family: var(--font-ui);
+  border-radius: 2px;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  font-variant: small-caps;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  font-feature-settings: "onum" 1, "kern" 1;
+}
+
+/* Copy — ghost ember border */
+[data-theme="ink-black"] .btn-secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1.5px solid rgba(216, 112, 78, 0.55);
+  box-shadow:
+    inset 0 0 0 2px var(--bg-subtitle),
+    inset 0 0 0 3.5px rgba(216, 112, 78, 0.4);
+}
+
+[data-theme="ink-black"] .btn-secondary:hover:not(:disabled) {
+  background: rgba(216, 112, 78, 0.08);
+  border-color: var(--accent);
+  box-shadow:
+    inset 0 0 0 2px var(--bg-subtitle),
+    inset 0 0 0 3.5px var(--accent);
+}
+
+/* Export — ember fill */
+[data-theme="ink-black"] .btn-primary {
+  background: var(--accent);
+  color: #1e1812;
+  border: 1.5px solid var(--accent-dark);
+  box-shadow:
+    0 0 0 1px var(--accent-dark),
+    inset 0 0 0 2px var(--accent),
+    inset 0 0 0 3.5px rgba(237, 224, 192, 0.2);
+}
+
+[data-theme="ink-black"] .btn-primary:hover:not(:disabled) {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+  box-shadow:
+    0 0 0 1px var(--accent-dark),
+    inset 0 0 0 2px var(--accent-dark),
+    inset 0 0 0 3.5px rgba(237, 224, 192, 0.15);
+}
+
+/* ── Lists ── */
+[data-theme="ink-black"] .card-text ul.md-list {
+  padding-left: 1.4em;
+  list-style: none;
+}
+
+[data-theme="ink-black"] .card-text ul.md-list li {
+  padding-left: 0;
+}
+
+[data-theme="ink-black"] .card-text ul.md-list li::before {
+  content: '◆';
+  position: absolute;
+  left: -1.2em;
+  top: 1.125em;
+  font-size: 0.6em;
+  line-height: 1;
+  font-family: Georgia, serif;
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+[data-theme="ink-black"] .card-text ol.md-list {
+  list-style: lower-roman;
+  padding-left: 2.5em;
+  counter-reset: none;
+}
+
+[data-theme="ink-black"] .card-text ol.md-list li {
+  padding-left: 0.3em;
+}
+
+[data-theme="ink-black"] .card-text ol.md-list li::before {
+  content: none;
+}
+
+[data-theme="ink-black"] .card-text ol.md-list li::marker {
+  color: rgba(184, 160, 112, 0.65);
+  font-size: 0.85em;
+}
+
+[data-theme="ink-black"] .card-text ol.md-list[data-long="true"] {
+  list-style: decimal;
+}
+
+/* ── Blockquote ── */
+[data-theme="ink-black"] .card-text blockquote {
+  margin: 10px 0 10px 20px;
+  color: var(--text-secondary);
+  font-style: italic;
+  font-family: "楷体", "KaiTi", "STKaiti", var(--font-body);
+  font-synthesis: none;
+  opacity: 0.85;
+}
+
+/* ── Inline code: typewriter chip ── */
+[data-theme="ink-black"] .md-code {
+  background: rgba(255, 255, 255, 0.05);
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  color: var(--text-primary);
+  padding: 2px 5px;
+  margin: 0 2px;
+}
+/* Fenced blocks — 暗井：代码是刻进桌面的，不是贴上去的。
+   块面下凹（比卡面更深 + 内阴影），代码用专属暖沙金墨（比正文 --text-primary 沉半档）。
+   语言角标不另设色——继承沙金墨走基础层 45% 透明度，元数据当耳语。
+   行内 chip 维持上方贴片样式不动。 */
+[data-theme="ink-black"] .md-codeblock {
+  background: rgba(0, 0, 0, 0.30);
+  border: 0.5px solid rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  color: #d8c9a0;
+  padding: 10px 12px;
+  margin: 8px 0;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+/* ── Links ── */
+/* Links: inherit the unified base style — no override needed for ink-black. */
+
+/* ── Scrollbar ── */
+[data-theme="ink-black"] .fragment-list::-webkit-scrollbar {
+  width: 7px;
+}
+[data-theme="ink-black"] .fragment-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+[data-theme="ink-black"] .fragment-list::-webkit-scrollbar-thumb,
+[data-theme="ink-black"] .fragment-list:not(.is-scrolling):hover::-webkit-scrollbar-thumb {
+  border-right: 4px solid transparent;
+  background-clip: padding-box;
+  border-radius: 10px;
+  background-color: transparent;
+  background-image: none;
+  box-shadow: none;
+}
+
+[data-theme="ink-black"] .fragment-list.has-scrolled:not(.is-scrolling)::-webkit-scrollbar-thumb {
+  animation: ink-scrollbar-fadeout 1.8s ease forwards;
+}
+
+[data-theme="ink-black"] .fragment-list.is-scrolling::-webkit-scrollbar-thumb {
+  background-color: rgba(216, 112, 78, 0.3);
+  box-shadow: 0 0 3px rgba(216, 112, 78, 0.1);
+  animation: ink-scrollbar-fadein 0.8s ease forwards;
+}
+
+[data-theme="ink-black"] .fragment-list.is-scrolling:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(216, 112, 78, 0.45);
+  animation: none;
+}
+
+@keyframes ink-scrollbar-fadein {
+  from { background-color: transparent; box-shadow: none; }
+  to   { background-color: rgba(216, 112, 78, 0.3);
+         box-shadow: 0 0 3px rgba(216, 112, 78, 0.1); }
+}
+
+@keyframes ink-scrollbar-fadeout {
+  0%   { background-color: rgba(216, 112, 78, 0.3); }
+  28%  { background-color: rgba(216, 112, 78, 0.3); }
+  100% { background-color: transparent; }
+}
+
+/* ── Empty state — Direction A: Bookplate (dark adaptation) ── */
+/* Vine / ribbon use --accent-color (#d8704e) via currentColor — no SVG overrides needed. */
+/* Foxing spots: brighten to simulate "gold dust on dark scroll" */
+[data-theme="ink-black"] .empty-foxing {
+  background: radial-gradient(ellipse, #d8a070 0%, transparent 70%);
+}
+
+/* Noise overlay: screen blend on dark bg */
+[data-theme="ink-black"] .empty-state::before {
+  mix-blend-mode: screen;
+  opacity: 0.08;
+}
+
+/* Book spine: deeper shadow for dark theme */
+[data-theme="ink-black"] .book-spine {
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.18) 50%,
+    transparent 100%
+  );
+}
+
+/* ── Meta action (clear) ── */
+[data-theme="ink-black"] .meta-action {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+}
+
+[data-theme="ink-black"] .meta-action:not(:disabled):hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+[data-theme="ink-black"] .meta-action--pending {
+  color: var(--accent) !important;
+}
+
+/* ── Separators: 铅笔痕迹 — barely-there structure on deep paper ── */
+[data-theme="ink-black"] .copy-menu-sep {
+  height: 0;
+  background: none;
+  border-bottom: 1px dotted rgba(220, 211, 193, 0.15);
+  margin: 8px 12px;
+}
+
+[data-theme="ink-black"] .theme-popover-rule {
+  height: 0;
+  background: none;
+  border-bottom: 1px dotted rgba(220, 211, 193, 0.15);
+  margin: 0 14px 8px;
+}
+
+/* ── Copy menu hover: 月下微光 ── */
+[data-theme="ink-black"] .copy-menu-item:hover,
+[data-theme="ink-black"] .copy-menu-item:focus-visible {
+  background: rgba(220, 211, 193, 0.08);
+  color: var(--text-primary);
+}
+
+/* ── Inkwell button: 银色轮廓 screen 叠加，朱砂液面暗燃 ── */
+[data-theme="ink-black"] .palette-btn {
+  color: rgba(166, 166, 166, 0.5);
+  mix-blend-mode: screen;
+  transition: color 0.4s ease, background 0.15s, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+[data-theme="ink-black"] .palette-btn:hover {
+  color: rgba(166, 166, 166, 0.9);
+  background: transparent;
+}
+
+/* Highlight dot: 瓶颈角的月光反光 */
+[data-theme="ink-black"] .inkwell-dot { opacity: 0.2; }
+
+/* Ink: 朱砂暗燃，hover 加深辉光 */
+[data-theme="ink-black"] .inkwell-ink {
+  fill: url(#inkwell-ink-grad);
+  filter: drop-shadow(0 0 3px rgba(195, 71, 54, 0.3));
+}
+[data-theme="ink-black"] .palette-btn:hover .inkwell-ink {
+  fill: url(#inkwell-ink-grad);
+  filter: drop-shadow(0 0 6px rgba(195, 71, 54, 0.5));
+}
+
+/* ── Links: 月光银丝 — ghost thread on dark paper, dried seal on hover ── */
+/* Asymmetric transition: quick to appear (0.25s), slow to fade (0.6s).     */
+[data-theme="ink-black"] .md-link {
+  text-decoration-color: rgba(220, 211, 193, 0.2);
+  transition: text-decoration-color 0.6s ease;   /* leaving hover — slow fade */
+}
+
+[data-theme="ink-black"] .md-link:hover {
+  text-decoration-color: rgba(138, 82, 74, 0.65);
+  text-decoration-thickness: 0.7px;
+  transition: text-decoration-color 0.25s ease;  /* entering hover — quick surface */
+}
+
+/* ── Theme popover ── */
+[data-theme="ink-black"] .theme-popover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="ink-black"] .theme-popover-h {
+  font-family: var(--font-ui);
+}
+
+[data-theme="ink-black"] .theme-name {
+  font-family: var(--font-ui);
+}

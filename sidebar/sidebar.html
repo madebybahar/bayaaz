@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="song">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bayaaz</title>
+  <link rel="stylesheet" href="sidebar.css">
+  <link rel="stylesheet" href="../themes/song.css">
+  <link rel="stylesheet" href="../themes/parchment.css">
+  <link rel="stylesheet" href="../themes/ink-black.css">
+</head>
+<body data-state="empty">
+
+  <!-- Book spine shadow (empty state only) -->
+  <div class="book-spine" aria-hidden="true"></div>
+
+  <!-- Theme popover — body-level so it works from the palette button -->
+  <div id="themePopover" class="theme-popover" role="menu" aria-label="Select theme"></div>
+
+  <!-- Header: editable article title + palette button -->
+  <header class="sidebar-header">
+    <input
+      type="text"
+      id="titleInput"
+      class="title-input"
+      placeholder="Article title"
+      spellcheck="false"
+      autocomplete="off"
+    >
+    <div class="palette-wrap">
+      <button id="paletteBtn" class="palette-btn" title="Change the mood" aria-label="Change the mood" aria-haspopup="true" aria-expanded="false">
+        <svg class="inkwell-svg" viewBox="0 0 100 100" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Ink gradient · dark mode: restrained cinnabar, screen-blend dims overall -->
+            <linearGradient id="inkwell-ink-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stop-color="#c34736" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#8b2929" stop-opacity="0.3"/>
+            </linearGradient>
+          </defs>
+          <!-- Cork stopper -->
+          <ellipse cx="50" cy="21" rx="11" ry="4" stroke="currentColor" stroke-width="4"/>
+          <line x1="50" y1="21" x2="50" y2="15" stroke="currentColor" stroke-width="3.5"/>
+          <!-- Brass collar -->
+          <rect x="39" y="25" width="22" height="10" stroke="currentColor" stroke-width="4"/>
+          <!-- Bottle body -->
+          <path d="M 25 35 L 75 35 L 77 82 L 23 82 Z" stroke="currentColor" stroke-width="4.5" stroke-linejoin="miter"/>
+          <!-- Glass highlight — left-wall refraction, near-white, very subtle -->
+          <path d="M 31 39 Q 29 50 30 57" stroke="white" stroke-width="1.8" stroke-linecap="round" opacity="0.28"/>
+          <!-- Rim highlight — cork top edge, moon-light arc, dark-mode only -->
+          <path class="inkwell-rim" d="M 43 18 Q 50 16 57 18" stroke="#dcd3c1" stroke-width="1" stroke-linecap="round" fill="none"/>
+          <!-- Ink — 柳叶描: thin at ends, thick center, 2px gap from walls -->
+          <path class="inkwell-ink" d="M 31 62 C 40 57.5,60 57.5,69 62 C 60 66.5,40 66.5,31 62 Z" fill="var(--accent-color)"/>
+          <!-- Highlight dot — bottle neck corner, dark-mode only -->
+          <circle class="inkwell-dot" cx="61" cy="25" r="0.8" fill="white"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Chapter divider (shown per-theme) -->
+  <div class="section-divider" id="sectionDivider">
+    <span class="divider-rule"></span>
+    <span class="divider-gem">◆</span>
+    <span class="divider-rule"></span>
+  </div>
+
+  <!-- Fragment list -->
+  <main class="fragment-list" id="fragmentList">
+    <div class="empty-state" id="emptyState" aria-live="polite">
+
+      <!-- Foxing spots — 5 asymmetric aging marks -->
+      <div class="empty-foxing empty-foxing--1" aria-hidden="true"></div>
+      <div class="empty-foxing empty-foxing--2" aria-hidden="true"></div>
+      <div class="empty-foxing empty-foxing--3" aria-hidden="true"></div>
+      <div class="empty-foxing empty-foxing--4" aria-hidden="true"></div>
+      <div class="empty-foxing empty-foxing--5" aria-hidden="true"></div>
+
+      <div class="empty-ribbon">&mdash;&thinsp;Ex Libris&thinsp;&mdash;</div>
+
+      <!-- Top vine flourish -->
+      <svg class="empty-flourish empty-flourish--top" viewBox="0 0 230 30" aria-hidden="true">
+        <path d="M14,20 Q42,4 70,18 T128,18 Q156,3 188,18 Q208,24 220,12"
+              fill="none" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" opacity="0.9"/>
+        <path d="M14,20.5 Q42,4.5 70,18.5 T128,18.5 Q156,3.5 188,18.5"
+              fill="none" stroke="currentColor" stroke-width="0.3" stroke-linecap="round" opacity="0.5"/>
+        <path d="M48,14 q3,-9 9,-5 q-1,8 -9,5 Z" fill="currentColor" opacity="0.85" transform="rotate(-3 52 11)"/>
+        <path d="M88,16 q-3,-8 -8,-4 q1,7 8,4 Z" fill="currentColor" opacity="0.78" transform="rotate(5 84 13)"/>
+        <path d="M115,12 q2,-7 7,-3 q-1,6 -7,3 Z" fill="currentColor" opacity="0.70"/>
+        <path d="M150,15 q3,-9 9,-5 q-1,8 -9,5 Z" fill="currentColor" opacity="0.85" transform="rotate(8 154 12)"/>
+        <path d="M186,16 q-3,-8 -8,-4 q1,7 8,4 Z" fill="currentColor" opacity="0.75"/>
+        <text x="115" y="25" text-anchor="middle" fill="currentColor" font-size="14" font-family="EB Garamond, serif" opacity="0.9">&#10086;</text>
+        <path d="M14,20 q-7,-3 -9,4 q2,6 8,2" fill="none" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" opacity="0.85"/>
+        <circle cx="222" cy="12" r="1.2" fill="currentColor" opacity="0.75"/>
+      </svg>
+
+      <p class="empty-quote">A small library,<br>kept by hand.</p>
+
+      <div class="empty-rule"></div>
+
+      <p class="empty-hint"><span id="hlSweepTarget">Highlight a passage</span><br>and it will join the shelf.</p>
+
+      <!-- Bottom vine — genuinely different curve from top -->
+      <svg class="empty-flourish empty-flourish--bot" viewBox="0 0 230 30" aria-hidden="true">
+        <path d="M16,14 Q50,26 90,16 Q120,8 150,18 Q190,28 218,16"
+              fill="none" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" opacity="0.9"/>
+        <path d="M16,14.5 Q50,26.5 90,16.5 Q120,8.5 150,18.5"
+              fill="none" stroke="currentColor" stroke-width="0.3" stroke-linecap="round" opacity="0.5"/>
+        <path d="M55,21 q-3,7 -9,4 q1,-7 9,-4 Z" fill="currentColor" opacity="0.80" transform="rotate(-8 51 17)"/>
+        <path d="M98,17 q3,-7 9,-4 q-1,7 -9,4 Z" fill="currentColor" opacity="0.72" transform="rotate(12 102 13)"/>
+        <path d="M148,21 q-3,7 -9,4 q1,-7 9,-4 Z" fill="currentColor" opacity="0.85" transform="rotate(-5 144 17)"/>
+        <path d="M195,20 q3,-7 9,-4 q-1,7 -9,4 Z" fill="currentColor" opacity="0.78" transform="rotate(10 199 16)"/>
+        <text x="120" y="22" text-anchor="middle" fill="currentColor" font-size="14" font-family="EB Garamond, serif" opacity="0.85">&#10087;</text>
+        <path d="M16,14 q-5,4 -10,-2 q-1,-5 5,-4" fill="none" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" opacity="0.85"/>
+        <circle cx="220" cy="16" r="1" fill="currentColor" opacity="0.70"/>
+      </svg>
+
+      <div class="empty-finis" aria-hidden="true">&#9670;</div>
+
+    </div>
+  </main>
+
+  <!-- Export footer -->
+  <footer class="export-footer">
+    <div class="footer-actions">
+      <span class="excerpt-count" id="excerptCount"></span>
+      <button id="clearBtn" class="meta-action" disabled>❦ Clear</button>
+      <div class="copy-wrap">
+        <div id="copyMenu" class="copy-menu" hidden role="menu">
+          <button class="copy-menu-item" data-mode="plain"      role="menuitem">Copy as plain text</button>
+          <button class="copy-menu-item" data-mode="markdown"   role="menuitem">Copy as Markdown</button>
+          <div class="copy-menu-sep" role="separator"></div>
+          <button class="copy-menu-item" data-mode="quote-only" role="menuitem">Copy excerpt text only</button>
+        </div>
+        <button id="copyBtn" class="btn btn-secondary" disabled>Copy</button>
+      </div>
+      <button id="exportBtn" class="btn btn-primary" disabled>Export .md</button>
+    </div>
+  </footer>
+
+  <script src="sidebar.js"></script>
+</body>
+</html>

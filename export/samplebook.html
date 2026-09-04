@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bayaaz · Imprint — Sample Book</title>
+<link rel="stylesheet" href="samplebook-fonts.css">
+<style>
+
+/* 中文字体人格：本地打包的 OFL 开源字（无远程，守 MV3 离线铁律）。
+   文津宋体(刻铭组) · 霞鹜文楷(书写组) · 朱雀仿宋(铅印组)，均 SIL OFL 1.1，子集化见 fonts/CJK-OFL-LICENSE.txt */
+@font-face{ font-family:"WenJin Mincho"; font-style:normal; font-weight:400; font-display:swap;
+  src:url("../fonts/WenJinMincho-subset.woff2") format("woff2"); }
+@font-face{ font-family:"LXGW WenKai"; font-style:normal; font-weight:400; font-display:swap;
+  src:url("../fonts/LXGWWenKai-subset.woff2") format("woff2"); }
+@font-face{ font-family:"Zhuque Fangsong"; font-style:normal; font-weight:400; font-display:swap;
+  src:url("../fonts/ZhuqueFangsong-subset.woff2") format("woff2"); }
+
+/* Vazirmatn — OFL 现代 RTL 字体，由波斯设计师 Saber Rastikerdar 设计。
+   子集化覆盖 ASCII + Latin-1 + 阿拉伯主区 + 阿拉伯补充 + 表现形式 A/B（覆盖乌尔都所需变体）。
+   ~32KB woff2，给阿拉伯/乌尔都/波斯文剪藏跨级提升质感。 */
+@font-face{ font-family:"Vazirmatn"; font-style:normal; font-weight:400; font-display:swap;
+  src:url("../fonts/Vazirmatn-subset.woff2") format("woff2"); }
+
+/* Nanum Myeongjo — OFL 韩国开源明朝体（衬线）by Naver。替代之前的 Nanum Gothic（无衬线），
+   让 'other' 档读起来像书页——和中文 LXGW 楷书、乌尔都 Nastaliq 的"温度家族"对齐。
+   子集化：ASCII + Latin-1 + 全部 11172 谚文方块 + 音素字母 + 兼容音素 + 扩展 A/B。
+   ~305KB woff2。unicode-range 限定到谚文区，避免污染日中文。 */
+@font-face{ font-family:"Nanum Myeongjo"; font-style:normal; font-weight:400; font-display:swap;
+  src:url("../fonts/NanumMyeongjo-subset.woff2") format("woff2");
+  unicode-range:U+1100-11FF, U+3130-318F, U+A960-A97F, U+AC00-D7AF, U+D7B0-D7FF; }
+
+/* Korean System — 仅 local() 的 @font-face，优先调系统韩文【明朝/衬线】（macOS
+   AppleMyungjo、Windows Batang、Linux Noto Serif CJK KR），与 other 档"书页感衬线"
+   一致（旧版误用黑体 Apple SD Gothic Neo，韩文成 sans 与全卡衬线不搭）。缺则落打包
+   的 Nanum Myeongjo（亦衬线）。unicode-range 限谚文区，不碰中日文。 */
+@font-face{ font-family:"Korean System"; font-style:normal; font-weight:400;
+  src:local("AppleMyungjo"),
+      local("Batang"), local("BatangChe"),
+      local("Noto Serif CJK KR"), local("NotoSerifCJKkr-Regular");
+  unicode-range:U+1100-11FF, U+3130-318F, U+A960-A97F, U+AC00-D7AF, U+D7B0-D7FF; }
+
+/* JP System — 仅 local() 的 @font-face，借本机日文明朝（macOS Hiragino Mincho、
+   Windows Yu Mincho、Linux/Android Noto Serif CJK JP 等）渲染日文。日文落 other 兜底
+   档，原字体栈无日文字体 → 価/実 等日文专用字掉到无衬线、汉字取中文字形；本档放栈最前
+   修正之。unicode-range 限到假名+汉字（韩文谚文不在此区，不受影响）。不打包字体（+0
+   体积）、纯 local（无网络/无 CDN，隐私零改动）。 */
+@font-face{ font-family:"JP System"; font-style:normal; font-weight:400;
+  src:local("Hiragino Mincho ProN"), local("HiraMinProN-W3"),
+      local("Toppan Bunkyu Mincho"), local("YuMincho"), local("Yu Mincho"),
+      local("BIZ UDMincho"), local("MS Mincho"),
+      local("Noto Serif CJK JP"), local("Noto Serif JP"), local("Source Han Serif JP"),
+      local("IPAexMincho");
+  unicode-range:U+3000-30FF, U+31F0-31FF, U+FF00-FFEF, U+3400-4DBF, U+4E00-9FFF; }
+/* JP System 真粗体（W6）——仅 local()。加粗款(clay/letterpress)请求 600/700 时，
+   日文取真 Hiragino W6 等粗明朝（保留横细竖粗对比），而非合成伪粗（伪粗会显黑体）。
+   缺真粗字族的平台靠 font-synthesis-weight:none 退回清爽明朝，绝不伪粗。0 体积、纯 local。 */
+@font-face{ font-family:"JP System"; font-style:normal; font-weight:600 700;
+  src:local("Hiragino Mincho ProN W6"), local("HiraMinProN-W6"),
+      local("Toppan Bunkyu Midashi Mincho"), local("YuMincho Demibold"),
+      local("Noto Serif CJK JP Bold"), local("Source Han Serif JP Bold"), local("Source Han Serif JP Heavy");
+  unicode-range:U+3000-30FF, U+31F0-31FF, U+FF00-FFEF, U+3400-4DBF, U+4E00-9FFF; }
+/* Zen Old Mincho — 打包日文明朝（古旧书版气，OFL by Zen Old Mincho Project Authors，见 ZenOldMincho-OFL.txt）。
+   日文落 other 兜底档时原栈只有 local 日文明朝 + LXGW 兜底，两个老毛病：① 加粗款(letterpress/clay/rubbing,
+   weight 600)在部分平台 local 粗明朝匹配不稳 → 缺字一路掉到栈尾 system-ui 黑体(角ゴシック)；② LXGW 是中文字体，
+   圧/円/満/発 等日文专字无覆盖、且汉字取中文字形。本款打包入 data-script="ja" 栈首根治：JIS1+2 汉字+假名齐全、
+   日文原生字形、跨机器一致、可嵌入导出 PNG。子集 ~1.9MB(7298 码位)，纯 url() 本地、零 CDN。 */
+@font-face{ font-family:"Zen Old Mincho"; font-style:normal; font-weight:400; font-display:swap;
+  src:url("../fonts/ZenOldMincho-subset.woff2") format("woff2"); }
+
+/* Devanagari System — 天城文衬线。栈首为打包的 Noto Serif Devanagari（清润、笔画匀、对比柔，
+   比 Tiro 秀气；OFL，本地 ~50KB woff2、零 CDN/远程），其后 local() 系统衬线兜底。
+   印地语落 other 兜底档、原栈无天城文字体 → 本档放栈前用 NSD 渲染，与古纸卡气质一致。
+   （曾用 Tiro，因笔画过敦实显粗已换 NSD。）unicode-range 限天城文区，不碰中日韩。 */
+@font-face{ font-family:"Devanagari System"; font-style:normal; font-weight:400;
+  src:url("../fonts/NotoSerifDevanagari-subset.woff2") format("woff2"),
+      local("Noto Serif Devanagari"), local("Shobhika"),
+      local("Devanagari MT"), local("Kohinoor Devanagari");
+  unicode-range:U+0900-097F, U+A8E0-A8FF, U+1CD0-1CFF; }
+
+/* Noto Nastaliq Urdu — Google's OFL Nastaliq font for Urdu/Persian.
+   Nastaliq is the high-art calligraphic style native to South Asia and Persia
+   (the product name "Bayaaz" بیاض is itself a Nastaliq word).
+   Subset to ASCII + Latin-1 + full Arabic + Supplement/Extended + Presentation
+   Forms A/B = ~231KB woff2. Only loaded for rtl-ur tier (Urdu/Persian/Kurdish
+   detected via 11 distinguishing characters), so Arabic users still get Naskh. */
+@font-face{ font-family:"Noto Nastaliq Urdu"; font-style:normal; font-weight:400; font-display:swap;
+  src:url("../fonts/NotoNastaliqUrdu-subset.woff2") format("woff2"); }
+
+*, *::before, *::after { box-sizing:border-box; }
+:root{
+  --gold:#c8a86a; --gold-dim:rgba(200,168,106,.42); --gold-soft:rgba(200,168,106,.16); --cream:#efe2c2;
+  --vermil:#b03828; --accent:#8b2929; --label-text:#d4bf85;
+  --serif:"Source Serif 4", "Vazirmatn", Georgia, serif; --serif-cjk:"Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "Vazirmatn", serif;
+  --display:"Cormorant Garamond", Georgia, serif; --cinzel:"Cinzel", serif;
+  --script:"Pinyon Script", cursive; --hand:"Caveat", cursive;
+  --sans:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
+  /* 中文三嗓音（系统外字优先，回退最稳系统字）：刻铭=宋 · 书写=楷 · 铅印=仿宋 */
+  --zh-engr:"WenJin Mincho", var(--serif-cjk);
+  --zh-hand:"LXGW WenKai", "Kaiti SC","STKaiti","KaiTi", var(--serif-cjk);
+  --zh-press:"Zhuque Fangsong", "STFangsong","FangSong", "WenJin Mincho", var(--serif-cjk); /* 朱雀繁体覆盖 ~59%，缺字落系统仿宋→已打包文津宋→宋 */
+  --grain:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='150'%20height='150'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.9'%20numOctaves='2'%20stitchTiles='stitch'/%3E%3C/filter%3E%3Crect%20width='150'%20height='150'%20filter='url(%23n)'/%3E%3C/svg%3E");
+  --tooth:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='220'%20height='220'%3E%3Cfilter%20id='t'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.4'%20numOctaves='2'%20stitchTiles='stitch'/%3E%3C/filter%3E%3Crect%20width='220'%20height='220'%20filter='url(%23t)'/%3E%3C/svg%3E");
+}
+
+
+.ex{ width:400px; align-self:start; position:relative; overflow:hidden; border-radius:2px; padding:44px 42px;
+  font-family:var(--serif); line-height:1.76; color:#2b1d10; box-shadow:0 4px 14px rgba(0,0,0,.42),0 24px 56px rgba(0,0,0,.46); }
+.ex .layer{ position:absolute; inset:0; pointer-events:none; }
+.ex .grain{ background:var(--grain); background-size:160px; opacity:.08; mix-blend-mode:multiply; }
+.ex > .content{ position:relative; z-index:4; }
+.ex .sub{ text-align:center; font-size:13.5px; margin:0 0 6px; line-height:1.4; opacity:.72; text-wrap:balance; }
+.ex .sub:empty{ display:none; }
+.ex .subrule{ width:38px; height:1px; background:currentColor; opacity:.3; margin:10px auto 18px; }
+.ex .q{ font-size:16px; text-align:justify; margin:0; }
+.ex[data-lang="en"] .q, .ex[data-lang="vi"] .q{ text-align:left; hyphens:none; } /* 拉丁窄栏毛边：justify 在 5-8 词/行摊出沟壑；zh 保基础层 justify（CLReq 字网均匀） */
+.ex[data-code][data-code] .q{ font-family:"Courier New",Courier,monospace; font-size:13.5px; line-height:1.7; text-align:left; white-space:pre-wrap; hyphens:none; } /* 代码剪藏"打字机"形态：等宽/左对齐/保缩进；双写属性 (0,4,0) 压过后方各语言档 (0,3,0)（含 zh 的 serif-cjk） */
+.ex .q p{ margin:0 0 .78em; } .ex .q p:last-child{ margin-bottom:0; }
+.ex .meta{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-top:22px; padding-top:13px; border-top:.5px solid rgba(43,29,16,.18); font-size:12px; }
+.ex .src{ font-style:italic; opacity:.62; text-wrap:balance; } /* 短行均衡律：src/sub 属 caption 类短展示行(CSS Text 4 的 balance 适应症)——匀长度防劈词组('do not'曾被拆行)；balance 只认长度不认标点，断在逗号是几何巧合非机制，全语种安全(仅改断点选择) */ .ex .src:empty{ display:none; }
+.ex .date{ font-family:var(--display); font-variant-numeric:oldstyle-figures; letter-spacing:1.6px; font-size:13px; opacity:.6; white-space:nowrap; margin-left:auto; } /* ⑤ 日期恒靠右（无来源时也不跑左） */
+.ex--clip2 .date{ font-family:var(--hand); font-variant:normal; letter-spacing:0; font-size:16px; }
+.ex[data-lang="zh"] .date{ font-family:var(--zh-hand); font-variant:normal; letter-spacing:2px; font-size:12.5px; } /* C：中文数字日期，霞鹜文楷，与出处合成一处落款 */
+.ex[data-lang="zh"] .q{ font-family:var(--serif-cjk); line-height:1.95; line-break:strict; text-autospace:normal; overflow-wrap:break-word; text-justify:inter-character; } /* ⑨ 中英混排：盘古之白 + 防溢出 + 字符间均摊 */
+.ex[data-lang="zh"] .q .di{ font-size:3.0em; line-height:1.3; padding:0; margin:.02em .26em 0 0; } /* ⑧ 首字下沉规整为整数 2 行高，环绕与下方正文对齐字网 */
+.ex[data-lang="zh"] .sub{ font-weight:600; letter-spacing:2.5px; font-style:normal; }
+.ex--bookplate[data-lang="en"] .q, .ex--letterpress[data-lang="en"] .q,
+.ex--bookplate[data-lang="vi"] .q, .ex--letterpress[data-lang="vi"] .q{ text-align:center; text-wrap:balance; } /* balance：行间匀词防孤行（"triad."独悬案）；Chrome114+，>6行自动降级不影响长文 */ /* 仪式款居中=款式身份；116 行窄栏毛边(0,3,0)曾误伤 EN 居中(基础层仅 0,2,0)——同特异度靠后复位；居中无 justify 河沟问题，毛边化理由不适用 */
+.ex--bookplate[data-lang="zh"] .q, .ex--letterpress[data-lang="zh"] .q{ text-align:justify; } /* CLReq: 中文正文方块网格应两端对齐，居中散排破坏字网 */
+/* other 档 Ex Libris 和 Letterpress 也取消居中（与 zh 同理：居中是西方藏书票/铅印传统） */
+.ex--bookplate[data-lang="other"] .q, .ex--letterpress[data-lang="other"] .q{ text-align:left; }
+.ex--bookplate[data-lang="other"] .meta{ justify-content:space-between; }
+/* rtl 档：自然右对齐 + meta 反向排列 */
+.ex--bookplate[data-lang="rtl"] .q, .ex--letterpress[data-lang="rtl"] .q{ text-align:right; }
+.ex--bookplate[data-lang="rtl"] .meta{ justify-content:space-between; flex-direction:row-reverse; }
+.ex[data-lang="zh"] .src{ font-style:normal; font-family:var(--zh-hand); letter-spacing:.5px; opacity:.78; } /* 出处恒楷=霞鹜文楷：一支署名手贯穿全卡 */
+.ex--bookplate[data-lang="zh"] .src{ font-size:14px; } /* Pinyon script has no CJK; kaiti at a calmer size */
+.ex[data-lang="zh"] .sub{ font-family:var(--serif-cjk); }
+/* ── 中文字体人格（镜像英文系统；仅 zh 生效，en 不受影响）──
+   范围：刻铭组/书写组/铅印组 题注(.sub)+首字(.di) 换字面；正文恒系统宋、出处恒楷、日期不动。
+   全换 4 款(waka/clip2/bookplate/letterpress) 额外把 正文(.q)+出处(.src) 并入嗓音。
+   依据预览 _cowork-output/previews/2026-06-14-zh-persona-final-v2.html，用户逐款点头 2026-06-14。*/
+.ex--illum[data-lang="zh"] .sub, .ex--cert[data-lang="zh"] .sub, .ex--wax[data-lang="zh"] .sub, .ex--papyrus[data-lang="zh"] .sub, .ex--quran[data-lang="zh"] .sub, .ex--rubbing[data-lang="zh"] .sub,
+.ex--illum[data-lang="zh"] .q .di, .ex--cert[data-lang="zh"] .q .di, .ex--wax[data-lang="zh"] .q .di, .ex--papyrus[data-lang="zh"] .q .di, .ex--quran[data-lang="zh"] .q .di, .ex--rubbing[data-lang="zh"] .q .di{ font-family:var(--zh-engr); }
+.ex--waka[data-lang="zh"] .sub, .ex--palm[data-lang="zh"] .sub, .ex--clay[data-lang="zh"] .sub, .ex--bookplate[data-lang="zh"] .sub, .ex--clip2[data-lang="zh"] .sub,
+.ex--waka[data-lang="zh"] .q .di, .ex--palm[data-lang="zh"] .q .di, .ex--clay[data-lang="zh"] .q .di, .ex--bookplate[data-lang="zh"] .q .di, .ex--clip2[data-lang="zh"] .q .di{ font-family:var(--zh-hand); }
+.ex--letterpress[data-lang="zh"] .sub, .ex--letterpress[data-lang="zh"] .q .di{ font-family:var(--zh-press); }
+/* 全换款：正文 + 出处也并入嗓音 */
+.ex--waka[data-lang="zh"] .q, .ex--clip2[data-lang="zh"] .q, .ex--bookplate[data-lang="zh"] .q,
+.ex--waka[data-lang="zh"] .src, .ex--clip2[data-lang="zh"] .src, .ex--bookplate[data-lang="zh"] .src{ font-family:var(--zh-hand); }
+.ex--letterpress[data-lang="zh"] .q{ font-family:var(--zh-press); } /* 出处归入“出处恒楷”，故此处不再含 .src */
+.dropcap .q .di{ float:left; font-size:3.1em; line-height:.82; padding:.04em .1em 0 0; font-weight:600; }
+/* ④ 无副标题→正文加顶部留白（en/zh 通用，避免贴顶部线/纹章/图标）。
+   带顶部角饰/横线的款（illum 结纹、clay 楔形带、papyrus 横带）多让一些。 */
+.ex .sub:empty ~ .q{ margin-top:22px; }
+.ex--illum .sub:empty ~ .q, .ex--clay .sub:empty ~ .q, .ex--papyrus .sub:empty ~ .q{ margin-top:32px; }
+/* ⑥ 出处与日期都没有 → 去掉 meta 分隔线。两种"没有"都覆盖：内容为空(:empty) 或被开关隐藏(hide-src/hide-date)。
+   Letterpress 等自带 .rule 纹饰：其 meta 本就无边框、◆ 分隔独立存在，不受影响。 */
+.ex.hide-date.hide-src .meta,
+.ex.hide-date .meta:has(.src:empty){ border-top:none; margin-top:6px; padding-top:0; }
+/* B：中文版日期独占一行、右对齐（落款式）；出处恒居左——即便居中款（Ex Libris/Letterpress）中文排版也不居中；英文版维持一行不变 */
+.ex[data-lang="zh"] .meta{ display:block; }
+.ex[data-lang="zh"] .src{ display:block; text-align:left; }
+.ex[data-lang="zh"] .date{ display:block; text-align:right; margin-top:5px; }
+
+.ex--illum{ background:linear-gradient(160deg,#f1e7cf,#e6d8b4); padding-left:52px; }
+.ex--illum .rule{ background:repeating-linear-gradient(0deg, transparent 0 27px, rgba(120,90,40,.1) 27px 27.7px); }
+.ex--illum::before{ content:''; position:absolute; left:34px; top:14px; bottom:14px; width:1px; background:rgba(176,56,40,.4); z-index:2; }
+.ex--illum .interlace{ position:absolute; right:14px; top:14px; width:44px; height:44px; z-index:3; }
+.ex--illum .sub{ color:var(--vermil); font-family:var(--cinzel); font-variant:small-caps; letter-spacing:2px; }
+.ex--illum .q .di{ float:left; font-family:var(--display); font-weight:600; color:#f1d589;
+  background:linear-gradient(150deg,#2c4ca0,#1b2c68); font-size:3.1em; line-height:1; padding:.06em .12em; margin:.02em .16em 0 0;
+  border:1px solid var(--gold-dim); box-shadow:0 1px 2px rgba(0,0,0,.32); text-shadow:0 1px 1px rgba(0,0,0,.3); }
+
+
+.ex--cert{ background:linear-gradient(160deg,#f6f1e2,#eee7d0); color:#1f4030; padding:42px 40px; }
+.ex--cert::before{ content:''; position:absolute; inset:10px; border:1px solid rgba(31,64,48,.5); z-index:2; }
+.ex--cert::after{ content:''; position:absolute; inset:14px; border:.5px solid rgba(31,64,48,.3); z-index:2; }
+.ex--cert .wm{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; opacity:.05; z-index:1; }
+.ex--cert .wm svg{ width:250px; height:250px; }
+.ex--cert .rosette{ display:block; width:64px; height:64px; margin:0 auto 12px; }
+.ex--cert .sub{ font-family:var(--cinzel); font-variant:small-caps; letter-spacing:3px; color:#1f4030; }
+.ex--cert .q{ color:#243d31; } .ex--cert .meta{ border-top-color:rgba(31,64,48,.25); } .ex--cert .src{ color:rgba(31,64,48,.7); }
+.ex--cert .date{ color:rgba(31,64,48,.6); } .ex--cert .q .di{ color:#1f4030; }
+
+
+.ex--wax{ background:repeating-linear-gradient(0deg, rgba(120,90,40,.04) 0 1px, transparent 1px 4px), linear-gradient(160deg,#f5eed9,#ece2c4); padding-bottom:98px; }
+.ex--wax::before{ content:''; position:absolute; inset:12px; border:.5px solid rgba(120,90,40,.25); z-index:2; }
+.ex--wax .sub{ font-family:var(--cinzel); font-variant:small-caps; letter-spacing:2.5px; color:#7a2418; }
+.ex--wax .ribbon{ position:absolute; left:50%; bottom:12px; transform:translateX(-50%); width:34px; height:40px; z-index:2; }
+.ex--wax .seal{ position:absolute; left:50%; bottom:22px; transform:translateX(-50%); width:60px; height:60px; border-radius:50%; z-index:3;
+  background:radial-gradient(circle at 38% 32%, #c34a3c, #8f2418 58%, #6c1810 100%);
+  box-shadow:inset 0 2px 4px rgba(255,180,160,.3), inset 0 -3px 7px rgba(0,0,0,.45), 0 3px 6px rgba(0,0,0,.38);
+  display:flex; align-items:center; justify-content:center; }
+.ex--wax .seal::before{ content:''; position:absolute; inset:7px; border:1px solid rgba(110,20,12,.7); border-radius:50%; }
+.ex--wax .seal .mk{ font-family:var(--display); font-style:italic; font-size:24px; color:#741a10; text-shadow:0 1px 0 rgba(255,170,150,.34), 0 -1px 1px rgba(0,0,0,.45); }
+
+
+.ex--clay{ color:#5a3418; padding:42px 40px; border-radius:9px;
+  background:radial-gradient(72% 60% at 30% 24%, rgba(255,222,182,.13), transparent 62%), linear-gradient(160deg,#b27c54,#9a5f38);
+  box-shadow:0 4px 14px rgba(0,0,0,.45),0 24px 56px rgba(0,0,0,.5), inset 0 0 34px rgba(70,36,12,.34); }
+.ex--clay .tooth{ background:var(--tooth); background-size:200px; opacity:.22; mix-blend-mode:multiply; }
+.ex--clay .wedge{ display:block; width:100%; height:13px; }
+.ex--clay .wedge.top{ margin-bottom:14px; } .ex--clay .wedge.bot{ margin-top:14px; transform:scaleY(-1); }
+.ex--clay .sub{ color:#6e3f1e; text-shadow:0 1px 0 rgba(255,228,196,.4); }
+.ex--clay[data-lang="zh"] .sub{ font-size:16px; font-weight:700; letter-spacing:2px; } /* ⑤ 泥板题目更粗更大更显眼 */
+.ex--clay .q{ color:#583316; font-weight:600; text-shadow:0 1px 0 rgba(255,228,196,.42), 0 -1px 1px rgba(40,18,6,.34); }
+.ex--clay .q .di{ color:#583316; }
+.ex--clay .meta{ border-top-color:rgba(60,34,15,.3); } .ex--clay .date{ font-family:var(--serif); font-style:italic; }
+
+
+.ex--papyrus{ color:#3a2614; padding:40px 38px;
+  background:
+   repeating-linear-gradient(90deg, rgba(150,110,60,.1) 0 9px, rgba(175,135,78,.04) 9px 18px),
+   repeating-linear-gradient(0deg, rgba(120,85,45,.08) 0 11px, transparent 11px 22px),
+   linear-gradient(160deg,#ddc28a,#ccae70); }
+.ex--papyrus .grain{ background:var(--grain); background-size:150px; opacity:.1; mix-blend-mode:multiply; }
+.ex--papyrus::before{ content:''; position:absolute; inset:10px; border:1px solid rgba(120,70,30,.4); z-index:2; }
+.ex--papyrus .band{ display:block; width:100%; height:16px; }
+.ex--papyrus .band.top{ margin-bottom:14px; } .ex--papyrus .band.bot{ margin-top:14px; transform:scaleY(-1); }
+.ex--papyrus .sub{ display:table; margin:6px auto 12px; border:1.5px solid rgba(150,60,30,.55); border-radius:40px; padding:5px 22px; color:#8a3a1c; font-family:var(--cinzel); font-variant:small-caps; letter-spacing:2px; } /* ⑥ 内外留白加大 */
+.ex--papyrus .meta{ border-top-color:rgba(58,38,20,.25); } .ex--papyrus .q .di{ color:#8a3a1c; }
+
+
+.ex--waka{ color:#2b2018; padding:42px 40px;
+  background:
+    linear-gradient(135deg, rgba(120,142,172,.2) 0 40%, transparent 40.3%),
+    linear-gradient(135deg, transparent 60%, rgba(168,150,92,.22) 60.3%),
+    linear-gradient(160deg,#f5efdf,#ece4cd); }
+.ex--waka .flecks{ background:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='130'%20height='130'%3E%3Cg%20fill='%23c89a3c'%3E%3Ccircle%20cx='14'%20cy='18'%20r='1'/%3E%3Ccircle%20cx='70'%20cy='10'%20r='.8'/%3E%3Ccircle%20cx='104'%20cy='40'%20r='1'/%3E%3Ccircle%20cx='40'%20cy='66'%20r='.9'/%3E%3Ccircle%20cx='92'%20cy='92'%20r='1'/%3E%3Ccircle%20cx='20'%20cy='104'%20r='.8'/%3E%3Crect%20x='54'%20y='44'%20width='3'%20height='3'%20transform='rotate(20%2055%2045)'/%3E%3Crect%20x='112'%20y='100'%20width='3'%20height='3'/%3E%3Crect%20x='30'%20y='30'%20width='14'%20height='1.4'%20transform='rotate(-18%2030%2030)'/%3E%3Crect%20x='80'%20y='66'%20width='12'%20height='1.3'%20transform='rotate(24%2080%2066)'/%3E%3C/g%3E%3Cg%20fill='%23cfd2cf'%3E%3Ccircle%20cx='48'%20cy='12'%20r='.8'/%3E%3Ccircle%20cx='118'%20cy='62'%20r='.9'/%3E%3Ccircle%20cx='66'%20cy='118'%20r='.8'/%3E%3Crect%20x='14'%20y='80'%20width='11'%20height='1.2'%20transform='rotate(12%2014%2080)'/%3E%3C/g%3E%3C/svg%3E"); }
+.ex--waka .shitae{ position:absolute; right:-4px; bottom:-6px; width:120px; height:120px; z-index:1; opacity:.16; }
+.ex--waka::before{ content:''; position:absolute; inset:11px; border:.5px solid rgba(180,150,80,.4); z-index:2; }
+.ex--waka .sub{ color:#5a4a2c; }
+.ex--waka .meta{ border-top-color:rgba(43,32,24,.2); } .ex--waka .q .di{ color:#8a6a2a; }
+
+
+.ex--palm{ color:#3e2c14; padding:38px 40px 38px 58px;
+  background:
+   repeating-linear-gradient(0deg, rgba(110,80,40,.08) 0 6px, rgba(150,115,65,.03) 6px 13px),
+   linear-gradient(160deg,#d7bd86,#c7a86c); }
+.ex--palm .grain{ background:var(--grain); background-size:150px; opacity:.08; mix-blend-mode:multiply; }
+.ex--palm::before{ content:''; position:absolute; inset:11px; border:1px solid rgba(120,50,25,.35); z-index:2; }
+.ex--palm .hole{ position:absolute; left:30px; width:13px; height:13px; border-radius:50%; z-index:3;
+  background:radial-gradient(circle at 40% 35%, #7a5e34, #2e2010 80%); box-shadow:inset 0 1px 2px rgba(0,0,0,.5), 0 0 0 3px rgba(120,90,50,.25); }
+.ex--palm .hole.h1{ top:34%; } .ex--palm .hole.h2{ top:66%; }
+.ex--palm .sub{ color:#6e3f1e; }
+.ex--palm .q{ color:#3a2810; text-shadow:0 1px 0 rgba(255,236,205,.3); }
+.ex--palm .meta{ border-top-color:rgba(62,44,20,.25); } .ex--palm .q .di{ color:#7a3a16; }
+
+
+.ex--quran{ color:#1c2f6e; padding:40px 38px;
+  background:linear-gradient(160deg,#f4ecd6,#ece1c2); }
+.ex--quran .grain{ background:var(--grain); background-size:150px; opacity:.07; mix-blend-mode:multiply; }
+.ex--quran::before{ content:''; position:absolute; inset:9px; border:2px solid #c19a44; z-index:2; }
+.ex--quran::after{ content:''; position:absolute; inset:14px; border:1px solid #2c4ca0; z-index:2; }
+.ex--quran .shamsa{ display:block; width:66px; height:66px; margin:0 auto 12px; }
+.ex--quran .sub{ color:#9a6a1e; font-family:var(--cinzel); font-variant:small-caps; letter-spacing:2px; }
+.ex--quran .q{ color:#26346a; } .ex--quran .meta{ border-top-color:rgba(28,47,110,.24); } .ex--quran .src{ color:rgba(28,47,110,.7); }
+.ex--quran .date{ color:rgba(28,47,110,.6); } .ex--quran .q .di{ color:#9a6a1e; }
+
+
+.ex--rubbing{ color:#e6ddcb; padding:42px 40px;
+  background:
+    radial-gradient(72% 60% at 30% 24%, rgba(255,255,255,.07), transparent 50%),
+    radial-gradient(64% 54% at 82% 82%, rgba(0,0,0,.62), transparent 55%),
+    radial-gradient(42% 38% at 58% 52%, rgba(0,0,0,.4), transparent 62%),
+    linear-gradient(160deg,#211d18,#080604); } /* ① 石面更暗、对比更强 */
+.ex--rubbing .grain{ background:var(--tooth); background-size:180px; opacity:.36; mix-blend-mode:overlay; } /* ① 石纹更重 */
+.ex--rubbing .chisel{ background:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='70'%20height='70'%3E%3Cg%20fill='%23e8ddc4'%20opacity='.5'%3E%3Ccircle%20cx='12'%20cy='16'%20r='.6'/%3E%3Ccircle%20cx='52'%20cy='9'%20r='.5'/%3E%3Ccircle%20cx='64'%20cy='44'%20r='.6'/%3E%3Ccircle%20cx='30'%20cy='60'%20r='.5'/%3E%3C/g%3E%3Cg%20fill='%23000'%20opacity='.55'%3E%3Ccircle%20cx='40'%20cy='30'%20r='.7'/%3E%3Ccircle%20cx='20'%20cy='46'%20r='.6'/%3E%3Ccircle%20cx='58'%20cy='66'%20r='.6'/%3E%3Cpath%20d='M24%2024l4%201'%20stroke='%23000'%20stroke-width='.4'/%3E%3C/g%3E%3C/svg%3E"); opacity:.6; mix-blend-mode:overlay; }
+.ex--rubbing .grid{ background:repeating-linear-gradient(0deg, transparent 0 30px, rgba(232,221,196,.05) 30px 30.6px), repeating-linear-gradient(90deg, transparent 0 30px, rgba(232,221,196,.05) 30px 30.6px); }
+.ex--rubbing::before{ content:''; position:absolute; inset:11px; border:1px solid rgba(232,221,196,.28); z-index:2; }
+.ex--rubbing .sub{ color:#cdbf9a; letter-spacing:3px; font-family:var(--cinzel); font-variant:small-caps; }
+
+.ex--rubbing .q{ color:#faf4e7; font-weight:600;
+  text-shadow:0 -2px 1px rgba(0,0,0,.98), 0 -1px 0 rgba(0,0,0,.92), 0 1.5px 0 rgba(252,245,226,.42), 0 2.5px 4px rgba(0,0,0,.95), 0 0 3px rgba(0,0,0,.9); } /* ① 阴文凹刻：暗在上沿、下沿受光亮边，像凿入石中 */
+.ex--rubbing[data-lang="zh"] .q{ font-weight:700; }
+.ex--rubbing .meta{ border-top-color:rgba(232,221,196,.2); } .ex--rubbing .src{ color:rgba(232,221,196,.72); }
+.ex--rubbing .date{ color:rgba(232,221,196,.6); }
+.ex--rubbing .q .di{ color:#fffaef; text-shadow:0 -2.5px 1px rgba(0,0,0,.98), 0 -1px 0 rgba(0,0,0,.9), 0 2px 0 rgba(252,245,226,.5), 0 3.5px 6px rgba(0,0,0,.96); }
+
+
+.ex--bookplate{ color:#2a241a; padding:40px 40px;
+  background:linear-gradient(160deg,#f3ecda,#ebe1c6); }
+.ex--bookplate .hatch{ background:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='10'%20height='10'%3E%3Cpath%20d='M0%2010L10%200'%20stroke='%235a4a2c'%20stroke-width='.5'/%3E%3C/svg%3E"); opacity:.06; }
+.ex--bookplate::before{ content:''; position:absolute; inset:10px; border:1px solid rgba(90,74,44,.5); z-index:2; }
+.ex--bookplate::after{ content:''; position:absolute; inset:14px; border:.5px solid rgba(90,74,44,.3); z-index:2; }
+.ex--bookplate .content{ text-align:center; }
+.ex--bookplate .crest{ display:block; width:58px; height:58px; margin:0 auto 8px; }
+.ex--bookplate .exlibris{ font-family:var(--cinzel); font-variant:small-caps; letter-spacing:6px; font-size:13px; color:#5a4a2c; margin:0 0 12px; }
+.ex--bookplate .sub{ font-style:italic; }
+.ex--bookplate .q{ text-align:center; }
+.ex--bookplate .meta{ justify-content:center; gap:16px; border-top-color:rgba(42,36,26,.2); }
+.ex--bookplate[data-lang="zh"] .exlibris,
+.ex--bookplate[data-lang="other"] .exlibris,
+.ex--bookplate[data-lang="rtl"] .exlibris{ display:none; } /* 非英文卡均隐藏拉丁 Ex Libris 行（纹章 crest 保留），藏书票文化本身是西方的，"Ex Libris" 这行拉丁文是它的文化标签 */
+.ex--bookplate[data-lang="zh"] .meta{ justify-content:space-between; } /* 来源居左、日期居右，与其他卡一致 */
+.ex--bookplate .src{ font-family:var(--script); font-size:19px; font-style:normal; opacity:.8; }
+.ex--bookplate .q .di{ float:none; }
+
+
+.ex--letterpress{ color:#3a2a14; padding:50px 46px;
+  background:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='90'%20height='90'%3E%3Cg%20stroke='%237a5a2e'%20stroke-width='.5'%20opacity='.22'%3E%3Cpath%20d='M8%2020l9%202'/%3E%3Cpath%20d='M60%2012l7-3'/%3E%3Cpath%20d='M40%2050l-8%201'/%3E%3Cpath%20d='M74%2064l6%204'/%3E%3C/g%3E%3C/svg%3E"), linear-gradient(160deg,#c2a268,#a8854c); }
+.ex--letterpress .tooth{ background:var(--tooth); background-size:230px; opacity:.18; mix-blend-mode:multiply; }
+.ex--letterpress .fine{ background:var(--grain); background-size:140px; opacity:.11; mix-blend-mode:multiply; }
+.ex--letterpress > .content{ text-align:center; }
+.ex--letterpress::before{ content:''; position:absolute; inset:15px; border-radius:2px; pointer-events:none; z-index:2; box-shadow:inset 2px 2px 3px rgba(0,0,0,.36), inset -2px -2px 3px rgba(255,248,224,.28); border:1px solid rgba(60,40,18,.1); }
+.ex--letterpress .corner{ position:absolute; width:22px; height:22px; z-index:3; }
+.ex--letterpress .corner.tl{ top:10px; left:10px; border-top:1.5px solid #c8a45a; border-left:1.5px solid #c8a45a; }
+.ex--letterpress .corner.tr{ top:10px; right:10px; border-top:1.5px solid #c8a45a; border-right:1.5px solid #c8a45a; }
+.ex--letterpress .corner.bl{ bottom:10px; left:10px; border-bottom:1.5px solid #c8a45a; border-left:1.5px solid #c8a45a; }
+.ex--letterpress .corner.br{ bottom:10px; right:10px; border-bottom:1.5px solid #c8a45a; border-right:1.5px solid #c8a45a; }
+.ex--letterpress .head{ display:block; width:160px; height:30px; margin:0 auto 14px; }
+.ex--letterpress .sub{ font-family:var(--display); font-variant:small-caps; letter-spacing:3px; font-size:13px; color:rgba(70,50,24,.62); text-shadow:0 1px 0 rgba(255,248,228,.55); }
+.ex--letterpress .subrule{ display:none; }
+.ex--letterpress .q{ text-align:center; font-size:16.5px; color:#5e4326; font-weight:600; text-shadow:0 1px 0 rgba(255,251,234,.66), 0 -1px 0 rgba(0,0,0,.24); }
+.ex--letterpress .q .di{ float:none; color:#a9803a; font-size:3.1em; line-height:.8; padding:.02em .08em 0 0; font-weight:600; text-shadow:0 1px 0 rgba(255,250,228,.7), 0 -1.5px 1px rgba(60,30,10,.42), 1px 1px 0 rgba(120,80,30,.22); }
+.ex--letterpress .rule{ display:flex; align-items:center; justify-content:center; gap:8px; margin:18px 0 0; }
+.ex--letterpress .rule::before, .ex--letterpress .rule::after{ content:''; border-top:2px solid rgba(60,40,18,.3); width:62px; box-shadow:0 1px 0 rgba(255,248,228,.4); }
+.ex--letterpress .rule i{ font-style:normal; font-size:9px; color:rgba(70,50,24,.6); }
+.ex--letterpress .meta{ justify-content:center; gap:14px; margin-top:16px; padding-top:0; border-top:none; font-size:11.5px; font-family:var(--display); font-variant:small-caps; letter-spacing:1.4px; color:rgba(70,50,24,.62); }
+/* ③ Letterpress 中文：副标题更大更粗+留白；来源居左日期居右。
+   （删除此前误把正文压回系统宋的 .q 覆盖——正文现由人格规则走朱雀仿宋） */
+.ex--letterpress[data-lang="zh"] .sub{ font-size:16.5px; font-weight:600; color:rgba(58,40,16,.95); letter-spacing:.5px; margin-bottom:20px; text-shadow:0 1px 0 rgba(255,248,228,.6); }
+.ex--letterpress[data-lang="zh"] .meta{ margin-top:14px; font-variant:normal; letter-spacing:normal; } /* 不加边框：底部 ◆ rule 即分隔；出处居左/日期独占一行由通用 zh 落款规则接管 */
+
+
+.ex--clip2{ color:#2b1d10; padding:48px 44px;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(139,106,58,.07), transparent 9%),
+    radial-gradient(circle at 82% 30%, rgba(139,106,58,.06), transparent 8%),
+    radial-gradient(circle at 60% 84%, rgba(139,106,58,.05), transparent 10%),
+    linear-gradient(165deg,#f4e8c8,#ddc998); }
+.ex--clip2::before{ content:''; position:absolute; inset:14px; border:.5px solid rgba(60,40,15,.2); z-index:2; }
+.ex--clip2 .vine{ display:block; width:130px; height:18px; margin:0 auto 14px; color:#b03828; opacity:.9; }
+.ex--clip2 .sub{ font-style:italic; color:#6b5439; }
+.ex--clip2 .subrule{ background:#b03828; opacity:.55; }
+.ex--clip2 .q .di{ color:#b03828; }
+.ex--clip2 .finis{ text-align:center; margin-top:16px; color:#b03828; font-size:13px; opacity:.85; }
+.ex--clip2 .meta{ border-top-color:rgba(60,40,15,.18); } .ex--clip2 .date{ color:#9b8662; }
+
+
+/* export-safe additions */
+.ex.hide-sub .sub, .ex.hide-sub .subrule{ display:none; }
+.ex.hide-src .src{ display:none; }
+.ex.hide-date .date{ display:none; }
+
+
+/* ===== Sample Book of Papers ===== */
+html,body{ height:100%; }
+body{ margin:0; min-height:100vh; overflow:hidden; color:var(--label-text); font-family:var(--display),serif;
+  background-color:#1e150c;
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='240'%20height='240'%3E%3Cfilter%20id='gg'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.6'%20numOctaves='2'%20stitchTiles='stitch'/%3E%3C/filter%3E%3Crect%20width='240'%20height='240'%20filter='url(%23gg)'%20opacity='0.4'/%3E%3C/svg%3E"), radial-gradient(150% 105% at 50% -10%, rgba(88,62,34,.5), transparent 56%);
+  background-size:240px 240px, cover; background-position:center; background-blend-mode:soft-light, normal; }
+.stageroom{ position:relative; height:calc(100vh - 10px); margin:5px auto; max-width:1560px; display:flex; flex-direction:column; align-items:center; gap:16px;
+  padding:18px 30px 8px; border-radius:8px;
+  background-color:#2c2014;
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='240'%20height='240'%3E%3Cfilter%20id='gg'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.6'%20numOctaves='2'%20stitchTiles='stitch'/%3E%3C/filter%3E%3Crect%20width='240'%20height='240'%20filter='url(%23gg)'%20opacity='0.4'/%3E%3C/svg%3E"), radial-gradient(1040px 520px at 50% 6%, rgba(252,232,188,.2), transparent 64%), linear-gradient(160deg,#46331f,#2a1d11);
+  background-size:240px 240px, cover, cover; background-blend-mode:soft-light, screen, normal;
+  box-shadow:inset 0 0 180px rgba(36,20,8,.36); }
+.title-bar{ flex:0 0 auto; display:flex; align-items:center; justify-content:center; gap:14px; margin:6px 0 16px; font-size:13px; letter-spacing:0; font-variant:small-caps; color:#97825c; }
+
+/* book */
+@keyframes bookin{ from{opacity:0; transform:translateY(14px) scale(.985)} to{opacity:1} }
+.skip .book{ animation:none; }
+.book::before{ content:''; position:absolute; left:50%; top:0; bottom:0; width:34px; transform:translateX(-50%); z-index:4; pointer-events:none;
+  background:linear-gradient(to right, transparent, rgba(80,50,25,.22) 30%, rgba(40,25,12,.42) 50%, rgba(80,50,25,.22) 70%, transparent); }
+.ribbon{ position:absolute; top:-9px; left:calc(50% + 26px); width:16px; height:92px; z-index:5;
+  background:linear-gradient(180deg,#8b2929,#6a1010); clip-path:polygon(0 0,100% 0,100% 100%,50% 86%,0 100%); box-shadow:2px 2px 4px rgba(0,0,0,.3); }
+
+.page{ position:relative; padding:26px 46px 34px; display:flex; flex-direction:column; min-height:0; }
+.page.left{ align-items:center; justify-content:center; color:#3a2618; }
+
+/* featured hero */
+.featured{ position:relative; z-index:1; flex:1 1 auto; min-height:0; display:flex; align-items:center; justify-content:center; width:100%; transform-origin:center center; margin-bottom:28px; }
+/* long clips: scale floor + scrollable preview (export still renders full size) */
+.featured.overflow{ align-items:flex-start; overflow-y:auto; padding:26px 0 6px; scrollbar-width:thin; scrollbar-color:rgba(168,48,32,.4) transparent;
+  -webkit-mask-image:linear-gradient(to bottom, #000 0, #000 calc(100% - 30px), transparent 100%);
+  mask-image:linear-gradient(to bottom, #000 0, #000 calc(100% - 30px), transparent 100%); }
+.featured.overflow.scrolled{
+  -webkit-mask-image:linear-gradient(to bottom, transparent 0, #000 14px, #000 calc(100% - 30px), transparent 100%);
+  mask-image:linear-gradient(to bottom, transparent 0, #000 14px, #000 calc(100% - 30px), transparent 100%); }
+/* reading mode: the card lies flat on the page — no floating drop shadow smearing the parchment */
+.featured.overflow .ex.active{ box-shadow:0 1px 6px rgba(40,22,8,.22); }
+.featured.overflow::-webkit-scrollbar{ width:3px; }
+.featured.overflow::-webkit-scrollbar-track{ background:transparent; margin:10px 0; }
+.featured.overflow::-webkit-scrollbar-thumb{ border-radius:0; background:linear-gradient(180deg, transparent 0, #b6362a 12%, #8f2418 50%, #b6362a 84%, transparent 100%); opacity:.5; }
+/* === Optimization 6: page-turn timing + easing === */
+.featured.turning{ animation:leaf .75s cubic-bezier(.4,0,.2,1); }
+@keyframes leaf{ 0%{ transform:perspective(1500px) rotateY(-18deg); opacity:.25; filter:brightness(.82) } 50%{ opacity:.6 } 100%{ transform:none; opacity:1; filter:none } }
+.featured .ex{ display:none; transform-origin:center; }
+.featured .ex.active{ display:block; }
+/* ── 就地编辑（仅 hero 卡）：默认纯预览、不打扰；双击进入编辑才显朱批，与侧边栏双击编辑一致。
+   朱砂红=光标+朱批竖线 · 金褐=选中——全在插件配色内。 ── */
+#featured [data-edit]{ outline:none; position:relative; border-radius:3px;
+  transition:background .18s ease, box-shadow .18s ease; caret-color:#9e4636; }
+/* 编辑中（双击后 contenteditable=true）：金褐底 + 红褐柳叶朱笔（中粗两端尖，呼应朱墨笔锋）+ 红褐光标 */
+#featured [data-edit][contenteditable="true"]{ cursor:text; background:rgba(200,168,106,.13); }
+#featured [data-edit][contenteditable="true"]::before{ content:''; position:absolute;
+  left:-16px; top:2px; bottom:2px; width:5px; opacity:.9;
+  background:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%206%20100'%20preserveAspectRatio='none'%3E%3Cpath%20d='M3%201%20C1.1%2026%201.1%2074%203%2099%20C4.9%2074%204.9%2026%203%201%20Z'%20fill='%239e4636'/%3E%3C/svg%3E") no-repeat center/100% 100%; }
+#featured [data-edit][contenteditable="true"]::selection{ background:rgba(200,168,106,.42); }
+#featured [data-edit][contenteditable="true"] ::selection{ background:rgba(200,168,106,.42); }
+/* 批注随文明·暗地与中调全谱（07-27 两轮）：rubbing=泥金题跋（乌金拓引首题签以金书深签的装裱正统；朱圈初稿被裁——金石家的朱是小笔圈点非整段刷朱，整段选中配题跋金更合身，且归队产品绀纸金泥深色谱系）；
+   clay=润湿痕（泥板未干时以水润面抹平重刻——湿泥色深，选中即润湿备改）。 */
+#featured .ex--rubbing [data-edit][contenteditable="true"]{ background:rgba(214,186,126,.09); caret-color:#d8c9a0; }
+#featured .ex--rubbing [data-edit][contenteditable="true"]::selection,
+#featured .ex--rubbing [data-edit][contenteditable="true"] ::selection{ background:rgba(214,186,126,.30); }
+#featured .ex--rubbing [data-edit][contenteditable="true"]::before{ filter:none; opacity:.75;
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%206%20100'%20preserveAspectRatio='none'%3E%3Cpath%20d='M3%201%20C1.1%2026%201.1%2074%203%2099%20C4.9%2074%204.9%2026%203%201%20Z'%20fill='%23c9a860'/%3E%3C/svg%3E"); } /* 金泥柳叶：拓片编辑语言归金泥谱系，朱笔提亮版在黑石上过刺（她报）——笔随纱换 */
+#featured .ex--clay [data-edit][contenteditable="true"]{ background:rgba(74,40,16,.07); caret-color:#3a2210; }
+#featured .ex--clay [data-edit][contenteditable="true"]::selection,
+#featured .ex--clay [data-edit][contenteditable="true"] ::selection{ background:rgba(74,40,16,.24); }
+/* 批注色随文明（按文物配色）：中调暖底三款与默认金褐同色系相撞而隐形——
+   各换其文明自己的批注工具色。papyrus=朱批（埃及红赭 rubric 之源）；
+   palm=敷墨（贝叶经刻后敷灯烟墨工艺）；letterpress=铅字灰（type metal：铅锡锑活字的冷银灰——选中即拾字；二稿弃蓝铅：与浏览器默认选区蓝太近）。 */
+#featured .ex--papyrus [data-edit][contenteditable="true"]{ background:rgba(158,60,36,.07); }
+#featured .ex--papyrus [data-edit][contenteditable="true"]::selection,
+#featured .ex--papyrus [data-edit][contenteditable="true"] ::selection{ background:rgba(158,60,36,.26); }
+#featured .ex--palm [data-edit][contenteditable="true"]{ background:rgba(58,44,20,.06); }
+#featured .ex--palm [data-edit][contenteditable="true"]::selection,
+#featured .ex--palm [data-edit][contenteditable="true"] ::selection{ background:rgba(58,44,20,.22); }
+#featured .ex--letterpress [data-edit][contenteditable="true"]{ background:rgba(84,88,96,.07); }
+#featured .ex--letterpress [data-edit][contenteditable="true"]::selection,
+#featured .ex--letterpress [data-edit][contenteditable="true"] ::selection{ background:rgba(84,88,96,.28); }
+.style-tag{ position:relative; z-index:3; flex:0 0 auto; margin-top:16px; text-align:center; }
+.style-tag h3{ font-family:var(--cinzel),serif; font-size:13.5px; letter-spacing:3px; font-variant:small-caps; text-transform:none; color:#9c6a54; font-weight:600;
+  text-shadow:0 1px 1px rgba(255,253,245,.75), 0 -0.5px .5px rgba(60,38,16,.12); } /* letterpress：印入纸面 */
+.style-tag p{ font-family:var(--display),serif; font-size:11.5px; font-style:italic; color:#8a6a44; margin-top:4px; text-shadow:0 1px 1px rgba(255,253,245,.6); }
+
+/* right page index */
+.page.right{ padding-left:54px; }
+.right-header{ flex:0 0 auto; text-align:center; margin-bottom:8px; }
+.right-header h2{ font-family:var(--cinzel),serif; font-size:11px; letter-spacing:5.5px; font-variant:small-caps; text-transform:none; color:#866c4b;
+  text-shadow:0 1px 1px rgba(255,253,245,.7); }
+.right-header .count{ display:flex; align-items:center; justify-content:center; gap:9px; margin-top:5px;
+  font-family:var(--cinzel),serif; font-size:10px; letter-spacing:3.5px; font-variant:small-caps; font-weight:600; color:#9c875b; }
+.right-header .count .cr{ width:26px; height:1px; background:linear-gradient(to right, transparent, rgba(160,134,84,.55)); }
+.right-header .count .cr:last-child{ background:linear-gradient(to left, transparent, rgba(160,134,84,.55)); }
+/* Refinement 2: denser 3-column swatch grid */
+.swatches{ flex:1 1 auto; min-height:0; overflow-y:auto; display:grid; grid-template-columns:repeat(3, 1fr); gap:16px 10px; align-content:start; padding:7px 44px 7px 7px; /* breathing room so hover-lift / selection ring near the edges isn't clipped by this scroll container */ }
+.swatch{ cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:2px; }
+.frame{ width:100%; aspect-ratio:1/1; position:relative; overflow:hidden; border-radius:2px; border:1px solid rgba(150,112,64,.45); box-shadow:0 2px 6px rgba(80,50,25,.2), inset 0 0 0 1px rgba(255,250,235,.25); background:linear-gradient(160deg,#efe3c6,#e3d2ac); transition:transform .25s ease, box-shadow .25s ease; }
+.swatch:hover .frame{ transform:translateY(-3px) rotate(-.6deg); box-shadow:0 7px 14px rgba(80,50,25,.32); }
+.swatch.active .frame{ position:relative; }
+.swatch.active .frame::after{ content:''; position:absolute; inset:0; border:2px solid var(--accent); border-radius:2px; box-shadow:0 0 0 1px rgba(139,41,41,.35); pointer-events:none; z-index:5; } /* ring drawn INSIDE the frame so edge cards aren't clipped by the scroll container */
+/* specimen tiles: clone cards are forced square (400x400) so they fill the tile edge-to-edge;
+   the meta line pins to the bottom and the surplus becomes paper — texture and ornaments intact */
+.frame .ex{ position:absolute; top:50%; left:50%; width:400px; height:400px; transform-origin:center; box-shadow:none; border-radius:0; }
+.frame .ex > .content{ display:flex; flex-direction:column; height:100%; }
+.frame .ex .meta{ margin-top:auto; }
+.frame .ex .q{ flex:1 1 auto; min-height:0; overflow:hidden;
+  -webkit-mask-image:linear-gradient(to bottom, #000 0, #000 calc(100% - 16px), transparent 100%);
+  mask-image:linear-gradient(to bottom, #000 0, #000 calc(100% - 16px), transparent 100%); }
+.swatch .lab{ font-family:var(--cinzel),serif; font-size:10px; letter-spacing:1px; font-variant:small-caps; text-transform:none; color:#553a1f; text-align:center;
+  text-shadow:0 .5px 0 rgba(255,250,238,.3); }
+.swatch .lab small{ display:none; font-size:7.5px; letter-spacing:.2px; font-style:italic; text-transform:none; color:#8b6a45; margin-top:1px; }
+
+/* tools */
+  background:linear-gradient(180deg, rgba(40,25,15,.7), rgba(25,15,8,.9)); border:1px solid rgba(196,146,58,.18); box-shadow:0 6px 16px rgba(0,0,0,.5); }
+.stamp.active::after{ background:radial-gradient(circle at 40% 35%,#ffd9c8,#b03828); }
+.savewrap{ position:relative; display:flex; flex-direction:column; align-items:center; gap:5px; }
+.savetip{ position:absolute; bottom:62px; left:50%; transform:translateX(-50%); font-size:11px; font-style:italic; color:var(--label-text); opacity:0; transition:opacity .2s; white-space:nowrap; } .savetip.show{ opacity:.9; }
+.entry{ position:fixed; inset:0; z-index:400; background:#100b06; animation:efade 1.4s ease forwards; pointer-events:none; } @keyframes efade{0%{opacity:1}55%{opacity:1}100%{opacity:0;visibility:hidden}} .skip .entry{ display:none; }
+
+@keyframes sealedpop{ 0%{ transform:translate(-50%,-50%) scale(0); opacity:0 } 60%{ transform:translate(-50%,-50%) scale(1.2); opacity:1 } 100%{ transform:translate(-50%,-50%) scale(1); opacity:1 } }
+
+
+/* === Optimization 10: narrow width (sidebar coexistence) === */
+
+
+/* === Refinement 4: tools refinement === */
+
+
+.tcap{ font-size:11.5px; letter-spacing:3px; font-variant:small-caps; color:#9e8a60; align-self:center; }
+.tdiv{ flex:0 0 auto; width:1px; height:26px; background:linear-gradient(180deg, transparent, rgba(196,146,58,.16), transparent); }
+
+/* show/hide switches: solid vermilion dot = showing, hollow gold ring = hidden */
+.stamps{ display:flex; align-items:center; gap:18px; }
+.stamp{ display:inline-flex; align-items:center; gap:7px; padding:5px 2px; cursor:pointer; }
+.stamp::before{ content:''; flex:0 0 auto; width:9px; height:9px; border-radius:50%;
+  background:radial-gradient(circle at 40% 36%, #a76b54, #7c4634 80%);
+  border:1px solid rgba(190,130,100,.3); transition:all .2s; }
+.stamp.active::before{ background:transparent; border-color:rgba(196,146,58,.45); }
+.stamp .lb{ white-space:nowrap; font-size:12.5px; letter-spacing:1.6px; font-variant:small-caps; color:#ab9568; transition:color .2s; }
+.stamp:hover .lb{ color:#d6bd86; }
+.stamp.active .lb{ color:rgba(150,122,82,.42); }
+
+
+/* ===== save key: minimal wax dot (matte / flattened / smaller) ===== */
+.save-seal{
+  position:relative; width:37px; height:37px; border-radius:50%;
+  background:radial-gradient(circle at 42% 38%, #bb4636, #962a1e 56%, #6f1810 100%);
+  color:#7a1c12; font-size:16px; line-height:1;
+  display:flex; align-items:center; justify-content:center;
+  text-shadow:0 1px 0 rgba(255,170,150,.28), 0 -1px 1px rgba(40,8,4,.4);
+  box-shadow:inset 0 1px 3px rgba(255,176,156,.2), inset 0 -3px 6px rgba(40,8,4,.4), 0 2px 5px rgba(0,0,0,.38);
+  transition:transform .16s, box-shadow .16s, filter .16s; }
+.save-seal::before{
+  content:''; position:absolute; inset:5px; border:1px solid rgba(110,20,12,.5);
+  border-radius:50%; pointer-events:none; }
+.save-seal:hover{ transform:translateY(-2px); filter:brightness(1.06);
+  box-shadow:inset 0 1px 3px rgba(255,176,156,.22), inset 0 -3px 6px rgba(40,8,4,.4), 0 5px 11px rgba(0,0,0,.4); }
+.save-seal.pressed{ animation:presswax .3s ease; }
+@keyframes presswax{ 0%{transform:translateY(-2px)} 45%{transform:translateY(2px) scale(.95); box-shadow:inset 0 1px 4px rgba(40,8,4,.5), 0 1px 3px rgba(0,0,0,.45)} 100%{transform:translateY(0)} }
+.save-seal.sealed{ color:transparent;
+  background:radial-gradient(circle at 42% 38%, #9a2c20, #6f1810 60%, #511008); transition:background .3s ease; }
+.save-seal.sealed::after{ content:'✓'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  color:#f0d9b8; font-size:15px; font-weight:600; animation:sealedpop .6s ease; z-index:2; }
+
+.tools{ position:relative; flex:0 0 auto; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; align-self:center; gap:22px; margin-top:30px; padding:9px 30px; }
+
+/* soften the scroll edge: fade the swatch list at top & bottom into the page instead of a hard clip */
+.swatches{
+  -webkit-mask-image:linear-gradient(to bottom, transparent 0, #000 8px, #000 calc(100% - 12px), transparent 100%);
+  mask-image:linear-gradient(to bottom, transparent 0, #000 8px, #000 calc(100% - 12px), transparent 100%); }
+
+
+.tools::before{ content:''; position:absolute; top:-2px; left:50%; transform:translateX(-50%); width:340px; height:1px;
+  background:linear-gradient(to right, transparent, rgba(196,146,58,.42) 30%, rgba(196,146,58,.52) 50%, rgba(196,146,58,.42) 70%, transparent); }
+
+
+.seal-cap{ font-size:11.5px; letter-spacing:2px; font-variant:small-caps; color:#9e8a60; }
+
+
+.title-bar .r{ display:block; width:64px; height:1px; background:linear-gradient(to right, transparent, rgba(184,138,68,.5)); }
+.title-bar .r:last-child{ background:linear-gradient(to left, transparent, rgba(184,138,68,.5)); }
+.title-bar .mk{ color:#b88a44; font-size:9px; line-height:1; }
+
+
+/* ===== scrollbar: small & refined · vermilion · square head · 45° hatch ===== */
+.swatches{ scrollbar-width:thin; scrollbar-color:rgba(168,48,32,.4) transparent; }
+.swatches::-webkit-scrollbar{ width:3px; }
+.swatches::-webkit-scrollbar-track{ background:transparent; margin:16px 0; }
+.swatches::-webkit-scrollbar-thumb{
+  border:none; border-radius:0;
+  background:linear-gradient(180deg, transparent 0, #b6362a 12%, #8f2418 50%, #b6362a 84%, transparent 100%);
+  opacity:.5; transition:opacity .25s; }
+.swatches:hover::-webkit-scrollbar-thumb{ opacity:.75; }
+.swatches::-webkit-scrollbar-thumb:hover{ opacity:.95; }
+
+/* ===== 1) antique horizontal wood grain layered on the desk (book & controls float above) ===== */
+.stageroom::before{ content:''; position:absolute; inset:0; z-index:0; pointer-events:none; border-radius:8px;
+  background-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='600'%3E%3Cfilter%20id='a'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.003%200.2'%20numOctaves='3'%20seed='11'%20stitchTiles='stitch'/%3E%3CfeColorMatrix%20type='saturate'%20values='0'/%3E%3C/filter%3E%3Crect%20width='1200'%20height='600'%20filter='url(%23a)'%20opacity='0.85'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1200'%20height='600'%3E%3Cfilter%20id='b'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.0018%200.05'%20numOctaves='2'%20seed='5'%20stitchTiles='stitch'/%3E%3CfeColorMatrix%20type='saturate'%20values='0'/%3E%3C/filter%3E%3Crect%20width='1200'%20height='600'%20filter='url(%23b)'%20opacity='0.7'/%3E%3C/svg%3E");
+  background-size:1200px 600px, 1200px 600px;
+  background-blend-mode:multiply;
+  opacity:.4; mix-blend-mode:overlay; }
+.stageroom > *{ position:relative; z-index:1; }
+
+
+.book::after{ content:''; position:absolute; inset:0; z-index:5; pointer-events:none; border-radius:8px;
+  background:
+    radial-gradient(circle at 0 0,     rgba(74,44,16,.18), transparent 7%),
+    radial-gradient(circle at 100% 0,  rgba(74,44,16,.18), transparent 7%),
+    radial-gradient(circle at 0 100%,  rgba(74,44,16,.18), transparent 7%),
+    radial-gradient(circle at 100% 100%, rgba(74,44,16,.18), transparent 7%); }
+
+
+/* ===== ① real leather cover (peeks at outer + bottom) + ② gilt page edge ===== */
+.bookwrap{ position:relative; flex:1 1 auto; min-height:0; width:100%; max-width:1400px; margin:0 auto; display:flex; }
+.book{ position:relative; z-index:1; flex:1 1 auto; min-height:0; width:100%; display:grid; grid-template-columns:1fr 1fr; border-radius:8px; overflow:hidden; animation:bookin .9s ease both;
+  /* 纸页"本子"质感：纸纤纹理 + 纸面轻鼓 + 抬起的厚度投影（用柔影表现厚度，不堆实色块） */
+  background:
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='200'%20height='200'%3E%3Cfilter%20id='pg'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.9'%20numOctaves='2'%20stitchTiles='stitch'/%3E%3C/filter%3E%3Crect%20width='200'%20height='200'%20filter='url(%23pg)'%20opacity='0.5'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse at 50% 100%, rgba(160,100,50,.14), transparent 60%),
+    radial-gradient(ellipse at 50% 0%, rgba(160,100,50,.09), transparent 60%),
+    #f4e8c8;
+  background-size:200px 200px, auto, auto, auto;
+  background-blend-mode:multiply, normal, normal, normal;
+  box-shadow:
+    inset 0 0 50px rgba(120,86,42,.07),
+    0 0 0 1px rgba(70,46,20,.35),
+    0 2px 3px rgba(40,22,8,.32),
+    0 7px 13px -2px rgba(0,0,0,.28),
+    0 15px 24px -6px rgba(0,0,0,.2); }
+/* ① TN 旅行手帐植鞣皮封面：暖驼棕、哑光、使用感包浆、磨亮的边 */
+.cover{ position:absolute; z-index:0; top:-8px; left:-10px; right:-10px; bottom:-16px; border-radius:12px;
+  background-color:#80552c;
+  background-image:
+    /* 细绒磨毛（哑光绒面 nap） */
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='120'%20height='120'%3E%3Cfilter%20id='sf'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.9'%20numOctaves='2'%20stitchTiles='stitch'/%3E%3CfeColorMatrix%20type='saturate'%20values='0'/%3E%3C/filter%3E%3Crect%20width='120'%20height='120'%20filter='url(%23sf)'%20opacity='0.5'/%3E%3C/svg%3E"),
+    /* 中尺度绒毛起伏 */
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='280'%20height='280'%3E%3Cfilter%20id='sn'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.18'%20numOctaves='2'%20stitchTiles='stitch'/%3E%3CfeColorMatrix%20type='saturate'%20values='0'/%3E%3C/filter%3E%3Crect%20width='280'%20height='280'%20filter='url(%23sn)'%20opacity='0.38'/%3E%3C/svg%3E"),
+    /* 大尺度不均匀包浆 */
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='520'%20height='520'%3E%3Cfilter%20id='sp'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.02%200.025'%20numOctaves='3'%20stitchTiles='stitch'/%3E%3CfeColorMatrix%20type='saturate'%20values='0'/%3E%3C/filter%3E%3Crect%20width='520'%20height='520'%20filter='url(%23sp)'%20opacity='0.4'/%3E%3C/svg%3E"),
+    /* 暖棕绒面底（无高光，哑光） */
+    linear-gradient(150deg,#946238,#5f3f1f 80%,#7a5028);
+  background-size:120px 120px, 280px 280px, 520px 520px, cover;
+  background-blend-mode:soft-light, soft-light, soft-light, normal;
+  box-shadow:
+    inset 0 1px 0 rgba(206,160,102,.22),   /* 极淡边光（磨毛不反光） */
+    inset 0 0 18px rgba(50,28,10,.32),
+    0 18px 26px -10px rgba(0,0,0,.5),
+    0 42px 62px -14px rgba(0,0,0,.45); }
+/* 封面书脊对折：软皮对折谷 + 中央一道自然发暗的折痕（仿 TN，不做成硬槽/亮脊） */
+.cover::before{ content:''; position:absolute; top:0; bottom:0; left:50%; width:38px; transform:translateX(-50%); pointer-events:none; z-index:1;
+  background:
+    linear-gradient(to right, transparent 46%, rgba(32,18,7,.36) 50%, transparent 54%),
+    linear-gradient(to right,
+      rgba(222,172,112,0) 0%,
+      rgba(222,172,112,.09) 24%,
+      rgba(48,28,11,.15) 50%,
+      rgba(222,172,112,.09) 76%,
+      rgba(222,172,112,0) 100%); }
+/* TN 书脊细节：上端穿绳小孔 + 底端弹力绳结（仅上下露出处可见） */
+.cover::after{ content:''; position:absolute; inset:0; pointer-events:none; z-index:2;
+  background:
+    radial-gradient(3px 3.5px at 50% 4px, rgba(14,8,3,.85), rgba(14,8,3,.42) 60%, transparent 72%),
+    radial-gradient(5px 6px at 50% calc(100% - 9px), rgba(86,55,26,1) 28%, rgba(38,21,8,.85) 60%, transparent 72%); }
+/* 皮面烫金压线已去掉；页叠厚度也已撤回（方案1：纯皮面无厚度） */
+
+/* #2 导出中状态 */
+.save-seal.busy{ cursor:progress; filter:brightness(.9); }
+
+
+/* responsive */
+@media(min-width:1400px){ .swatches{ column-gap:12px; } }
+@media(max-width:1000px){
+  .stageroom{ padding-left:16px; padding-right:16px; }
+  .book{ grid-template-columns:1fr; max-width:100%; }
+  .book::before{ display:none; }
+  .page.left{ padding:24px 30px 30px; }
+  .page.right{ padding:24px 30px 30px; }
+}
+
+/* ============================================================
+   多语种兜底 L2（openspec/changes/multilang-fallback-l2/）
+   ------------------------------------------------------------
+   作用：当 detectLang 返回 'other' 或 'rtl' 时，应用系统字体回退 +
+   关闭中英专属规则。保证所有文字系统可用降级而不破排。
+   不动 12 款纸样装饰位置（v1.0 容忍，v2.0 再做专业镜像）。
+   ============================================================ */
+
+/* OTHER 档：日韩泰印希西里尔等所有非中、非英、非 RTL 文字
+   LXGW WenKai 源自 Klee One JP，含完整假名 → 让它当日文首选字体（0 字节增量）
+   Korean System 仅在谚文字符生效（unicode-range 限定），优先用系统韩文字体（macOS
+   Apple SD Gothic Neo / Windows Malgun Gothic），Nanum 作兜底。 */
+.ex[data-lang="other"] .q,
+.ex[data-lang="other"] .sub{
+ font-family:"JP System", "Devanagari System", "Korean System", "Nanum Myeongjo", "LXGW WenKai", system-ui, -apple-system, "Segoe UI", "Noto Sans", sans-serif;
+ font-synthesis-weight:none; /* 加粗款(clay/letterpress)上禁止合成伪粗——CJK 假粗会压平明朝对比、显黑体；有真粗字族(如日文 W6)则用真粗，无则保持清爽明朝 */
+}
+/* 来源 .src：英文默认是 Source Serif 4 Italic（无 CJK / 假名 / 谚文等），
+   对非中英文字符会 fallback 到瘦衬线，与 LXGW 正文不和谐。统一改为
+   LXGW WenKai → system 兜底，与正文字体气质一致。 */
+.ex[data-lang="other"] .src{
+ font-family:"JP System", "Devanagari System", "Korean System", "Nanum Myeongjo", "LXGW WenKai", system-ui, -apple-system, "Segoe UI", "Noto Sans", sans-serif;
+ font-synthesis-weight:none; /* 同上：禁止合成伪粗 */
+ font-style:normal;
+ letter-spacing:.3px;
+ font-size:13px;  /* override Ex Libris .src 19px which is only sized for Pinyon Script Latin */
+}
+.ex[data-lang="other"] .q{
+ text-align:left;
+ hyphens:none;
+ line-break:auto;
+ line-height:1.9; /* other 档默认（天城文/泰文：上下叠加符需更宽行距）。日/韩另由 data-script 覆盖 */
+ letter-spacing:0.01em;
+ font-feature-settings:"palt";
+}
+/* other 档内按文字微调（JS 给卡片打 data-script）：日文密排满格需更松，韩文等高方块抱团更佳 */
+.ex[data-script="ja"] .q{ line-height:2.0; text-autospace:normal; line-break:strict; font-feature-settings:normal; } /* JLREQ：和欧文细缝(1/4em) + 禁则；去 palt → 句读用全角传统留白(后带半角 aki)，不压成约物詰め */
+.ex[data-script="ko"] .q{ line-height:1.8; }
+.ex[data-script="hi"] .q, .ex[data-script="hi"] .sub, .ex[data-script="hi"] .src{ letter-spacing:normal; } /* ILREQ：天城文不可加字距——正文清 0.01em，出处/副标题清 other 档的 .3px/1px */
+/* 日文专属：打包 Zen Old Mincho 置栈首（见上方 @font-face 注释）——根治加粗款掉黑体 + 中文字形汉字。仅 data-script="ja"，不碰其他语种。 */
+.ex[data-script="ja"] .q, .ex[data-script="ja"] .sub, .ex[data-script="ja"] .src{
+ font-family:"Zen Old Mincho", "JP System", "Nanum Myeongjo", "LXGW WenKai", system-ui, -apple-system, "Segoe UI", "Noto Sans", sans-serif;
+}
+.ex[data-lang="other"] .sub{
+ text-transform:none;
+ letter-spacing:1px;
+ font-weight:500;
+}
+/* 关闭首字下沉：天城文元音符号合字、阿拉伯草书连写在 ::first-letter 下会破排 */
+.ex[data-lang="other"] .q::first-letter{
+ font-size:inherit; float:none; margin:0;
+ color:inherit; font-family:inherit;
+}
+.ex[data-lang="other"] .q .di{ display:none; }
+/* Letterpress 在 other 档：不强制居中——居中是西方铅印 title page 的传统，
+   对应英文摘录的卷首语美学；非英文（日韩泰印等）没有这种排版传统，
+   保留与正文一致的左对齐反而更得体。Ex Libris (bookplate) 同理。 */
+
+/* RTL 档：阿拉伯 / 乌尔都 / 希伯来。在 other 基础上叠加方向镜像
+   Vazirmatn 优先（覆盖阿拉伯系所有变体），希伯来落系统字体 */
+.ex[data-lang="rtl"] .q,
+.ex[data-lang="rtl"] .sub{
+ font-family:"Vazirmatn", system-ui, -apple-system, "Segoe UI", "Noto Sans", sans-serif;
+}
+/* 来源 .src：同 other，让来源字体与正文一致 */
+.ex[data-lang="rtl"] .src{
+ font-family:"Vazirmatn", system-ui, -apple-system, "Segoe UI", "Noto Sans", sans-serif;
+ font-style:normal;
+ letter-spacing:normal;  /* 阿拉伯连写：不可加字距（会切连笔），与 .q 一致 */
+ font-size:15px; opacity:.6;  /* 来源：明显淡于正文；与日期靠字号(15>12)拉开。三级层级 正文>来源>日期。override Ex Libris .src 19px */
+}
+.ex[data-lang="rtl"] .q{
+ direction:rtl;
+ text-align:right;
+ hyphens:none;
+ line-break:auto;
+ line-height:1.85;
+}
+.ex[data-lang="rtl"] .sub{
+ direction:rtl;
+ text-align:center;
+ text-transform:none;
+ letter-spacing:normal;  /* 阿拉伯连写：不可加字距（会切连笔） */
+ font-weight:500;
+}
+/* RTL 落款：出处 + 日期竖排、靠右(RTL 的对齐边)，像中文卡的落款——
+   避免日期被 margin-auto 推到参差不齐的左缘、贴边显突兀。 */
+.ex[data-lang="rtl"] .meta{ display:block; text-align:right; }
+.ex[data-lang="rtl"] .src{ display:block; }
+/* 日期字体跟随正文字体——让数字用 Vazirmatn 自带拉丁数字字形，与阿拉伯主体一气 */
+.ex[data-lang="rtl"] .date{ display:block; direction:rtl; text-align:right; margin:5px 0 0;
+ line-height:1.9; word-spacing:1px;
+ font-family:"Vazirmatn", system-ui, -apple-system, "Segoe UI", "Noto Sans", sans-serif;
+ font-feature-settings:normal; }
+/* 关闭首字下沉（同 other） */
+.ex[data-lang="rtl"] .q::first-letter{
+ font-size:inherit; float:none; margin:0;
+ color:inherit; font-family:inherit;
+}
+.ex[data-lang="rtl"] .q .di{ display:none; }
+/* Letterpress 在 rtl 档：取消居中（同 other），让正文按 RTL 自然右对齐。
+   meta 保持 RTL 默认（来源右、日期左，方向反向）。 */
+
+/* （Ex Libris/bookplate 的 other/rtl .src 字体已由通用 .ex[data-lang="other"|"rtl"] .src 接管，
+    不再单独声明） */
+
+/* RTL-UR 档：乌尔都 / 波斯 / 库尔德。在 rtl 基础上，把字体换成 Nastaliq。
+   Naskh（Vazirmatn）和 Nastaliq 是两种完全不同的书法风格——阿拉伯用 Naskh，
+   南亚/波斯用 Nastaliq。产品名 Bayaaz（بیاض）本身就是 Nastaliq 词，
+   给乌尔都用户配 Nastaliq 是文化语义闭环。
+   继承 rtl 档的所有方向/对齐/首字下沉关闭规则，只换字体族。 */
+.ex[data-lang="rtl-ur"] .q,
+.ex[data-lang="rtl-ur"] .sub{
+ font-family:"Noto Nastaliq Urdu", "Vazirmatn", system-ui, -apple-system, "Segoe UI", "Noto Sans", sans-serif;
+ line-height:2.5;  /* Nastaliq 字形高度较大，需要更宽行距才舒展 */
+}
+.ex[data-lang="rtl-ur"] .src{
+ font-family:"Noto Nastaliq Urdu", "Vazirmatn", system-ui, -apple-system, "Segoe UI", "Noto Sans", sans-serif;
+ font-style:normal;
+ letter-spacing:normal;  /* Nastaliq 连写：绝不可加字距（切连笔最严重），与 .q 一致 */
+ font-size:15px; opacity:.6;  /* 来源：明显淡于正文；与日期靠字号(15>12)拉开。三级层级 正文>来源>日期 */
+}
+.ex[data-lang="rtl-ur"] .q{
+ direction:rtl;
+ text-align:right;
+ hyphens:none;
+ line-break:auto;
+}
+.ex[data-lang="rtl-ur"] .sub{
+ direction:rtl;
+ text-align:center;
+ text-transform:none;
+ letter-spacing:normal;  /* Nastaliq 连写：不可加字距 */
+ font-weight:500;
+}
+/* RTL 落款（同 rtl）：出处 + 日期竖排靠右，日期不再贴左缘 */
+.ex[data-lang="rtl-ur"] .meta{ display:block; text-align:right; }
+.ex[data-lang="rtl-ur"] .src{ display:block; }
+/* 日期字体跟随正文 Nastaliq——数字字形与乌尔都主体一家 */
+.ex[data-lang="rtl-ur"] .date{ display:block; direction:rtl; text-align:right; margin:5px 0 0;
+ line-height:2.1; word-spacing:2px;
+ font-family:"Noto Nastaliq Urdu", "Vazirmatn", system-ui, -apple-system, "Segoe UI", "Noto Sans", sans-serif;
+ font-feature-settings:normal; }
+/* 关闭首字下沉（Nastaliq 的连笔被 ::first-letter 拽断会非常难看） */
+.ex[data-lang="rtl-ur"] .q::first-letter{
+ font-size:inherit; float:none; margin:0;
+ color:inherit; font-family:inherit;
+}
+.ex[data-lang="rtl-ur"] .q .di{ display:none; }
+/* rtl-ur 内：波斯(无乌尔都专属字母 ٹڈڑںھےہ)→ 现代 Naskh/Vazirmatn（现代波斯散文/新闻的标准体），
+   不走 Nastaliq；乌尔都(含专属字母)完全不受影响，仍 Nastaliq。
+   提高特异度 [data-script="fa"] 盖过上面的 Nastaliq 字体/行高规则。代价：波斯诗也走 Vazirmatn(无法程序区分诗/文)。 */
+.ex[data-lang="rtl-ur"][data-script="fa"] .q,
+.ex[data-lang="rtl-ur"][data-script="fa"] .sub,
+.ex[data-lang="rtl-ur"][data-script="fa"] .src,
+.ex[data-lang="rtl-ur"][data-script="fa"] .date{
+ font-family:"Vazirmatn", system-ui, -apple-system, "Segoe UI", "Noto Sans", sans-serif;
+}
+.ex[data-lang="rtl-ur"][data-script="fa"] .q{ line-height:1.85; }                    /* Vazirmatn 无需 Nastaliq 的 2.5 大行距 */
+.ex[data-lang="rtl-ur"][data-script="fa"] .date{ line-height:1.9; word-spacing:normal; }
+/* Ex Libris + Letterpress：跟随 rtl 的非居中取消规则 */
+.ex--bookplate[data-lang="rtl-ur"] .q, .ex--letterpress[data-lang="rtl-ur"] .q{ text-align:right; }
+.ex--bookplate[data-lang="rtl-ur"] .meta{ justify-content:space-between; flex-direction:row-reverse; }
+.ex--bookplate[data-lang="rtl-ur"] .exlibris{ display:none; }
+
+/* ── 越南语 (vi)：拉丁字母+变音符，正文/排版/首字均同英文（Source Serif 4 全覆盖越南语）。
+   仅装饰性 latin 子集字体缺越南语变音符（Pinyon Script 花体来源、Cinzel 罗马刻铭题注），
+   故只把 .sub / bookplate .src 换成 Source Serif，避免 ệ/ự/độ 等掉进系统衬线 fallback 与花体混排。 */
+.ex[data-lang="vi"] .sub{ font-family:"Source Serif 4",serif; font-variant:normal; letter-spacing:normal; }
+.ex--bookplate[data-lang="vi"] .src{ font-family:"Source Serif 4",serif; font-style:italic; font-size:14px; }
+.ex--bookplate[data-lang="vi"] .exlibris{ display:none; } /* 藏书票拉丁标签行：越南语卡隐藏，纹章保留（同其他非英文档） */
+
+/* 日期微调（非中英文档 rtl/rtl-ur/other/vi）：一行安静的落款。曾把浓度提到 .74 + 字距 3px，
+   结果拉丁数字在 Nastaliq/谚文旁边显得"重"、抢戏；改为调淡 + 收紧，退回背景做落款。
+   数字仍是 Cormorant 花体 oldstyle 西文数字，纯 CSS、零新增体积。中文(自有 .date 规则)/英文(基础规则)不受影响。 */
+.ex[data-lang="rtl"] .date, .ex[data-lang="rtl-ur"] .date,
+.ex[data-lang="other"] .date, .ex[data-lang="vi"] .date{ letter-spacing:normal; font-size:12px; opacity:.5; }
+/* 逐款修正：底色深/对比低的纸样上，通用 .5/.6 的来源·日期会糊，单独提浓（仍守"来源>日期"差距）。
+   放在通用规则之后以胜出（同特异度后写者赢）。 */
+.ex--clay .date, .ex--clip2 .date{ opacity:.78; }   /* Cuneiform / Clipping：日期提浓到可见 */
+.ex--letterpress .src{ opacity:1; }                  /* Letterpress：来源提到全色，清晰可读 */
+.ex--letterpress .date{ opacity:.85; }               /* Letterpress：日期再提浓，仍低于来源保持层级差 */
+
+</style>
+</head>
+<body>
+<div class="entry"></div>
+<div class="stageroom">
+  <div class="title-bar"><i class="r"></i><span class="mk">&#9670;</span><i class="r"></i></div>
+  <div class="bookwrap">
+    <div class="cover"></div>
+    <div class="book">
+    <div class="page left">
+      <!-- Optimization 11: left-page breathing ornament -->
+      <div style="font-size:16px; color:#c4923a; opacity:.4; margin-bottom:3px; letter-spacing:6px;">&#10086;</div>
+      <div class="featured" id="featured">
+<article class="ex ex--illum dropcap" data-style="illum">
+      <div class="layer grain"></div><div class="layer rule"></div>
+      <svg class="interlace" viewBox="0 0 44 44" aria-hidden="true"><g fill="none" stroke="#b8893e" stroke-width="2">
+        <path d="M8 8 C20 8 24 20 36 20 M8 20 C20 20 24 8 36 8"/><path d="M8 24 C20 24 24 36 36 36 M8 36 C20 36 24 24 36 24"/></g>
+        <circle cx="22" cy="22" r="2.4" fill="#2c4ca0"/></svg>
+      <div class="content">
+        <p class="sub"></p><div class="subrule"></div>
+        <div class="q"></div>
+        <div class="meta"><span class="src"></span><span class="date"></span></div>
+      </div>
+    </article>
+<article class="ex ex--cert dropcap" data-style="cert">
+      <div class="layer grain"></div>
+      <div class="layer wm"><svg viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="#1f4030" stroke-width=".5">
+        <g id="ro"><ellipse cx="50" cy="50" rx="40" ry="14"/><ellipse cx="50" cy="50" rx="40" ry="14" transform="rotate(30 50 50)"/><ellipse cx="50" cy="50" rx="40" ry="14" transform="rotate(60 50 50)"/><ellipse cx="50" cy="50" rx="40" ry="14" transform="rotate(90 50 50)"/><ellipse cx="50" cy="50" rx="40" ry="14" transform="rotate(120 50 50)"/><ellipse cx="50" cy="50" rx="40" ry="14" transform="rotate(150 50 50)"/><circle cx="50" cy="50" r="22"/><circle cx="50" cy="50" r="12"/></g></g></svg></div>
+      <div class="content">
+        <svg class="rosette" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="#1f4030" stroke-width=".8"><use href="#ro"/></g></svg>
+        <p class="sub"></p><div class="subrule"></div>
+        <div class="q"></div>
+        <div class="meta"><span class="src"></span><span class="date"></span></div>
+      </div>
+    </article>
+<article class="ex ex--wax dropcap" data-style="wax">
+      <div class="layer grain"></div>
+      <div class="content">
+        <p class="sub"></p><div class="subrule"></div>
+        <div class="q"></div>
+        <div class="meta"><span class="src"></span><span class="date"></span></div>
+      </div>
+      <svg class="ribbon" viewBox="0 0 34 40" aria-hidden="true"><path d="M11 0 L11 34 L17 28 L23 34 L23 0Z" fill="#9a2a1e"/><path d="M11 0 L23 0 L23 6 L11 6Z" fill="#7a1d14"/></svg>
+      <span class="seal"><span class="mk">&#10086;</span></span>
+    </article>
+<article class="ex ex--clay dropcap" data-style="clay">
+      <div class="layer tooth"></div>
+      <div class="content">
+        <svg class="wedge top" viewBox="0 0 300 13" preserveAspectRatio="none" aria-hidden="true"><g fill="#4a2a12" opacity=".55">
+          <path d="M8 2 L14 2 L11 11Z"/><path d="M28 2 L34 2 L31 11Z"/><path d="M48 2 L54 2 L51 11Z"/><path d="M68 2 L74 2 L71 11Z"/><path d="M88 2 L94 2 L91 11Z"/><path d="M108 2 L114 2 L111 11Z"/><path d="M128 2 L134 2 L131 11Z"/><path d="M148 2 L154 2 L151 11Z"/><path d="M168 2 L174 2 L171 11Z"/><path d="M188 2 L194 2 L191 11Z"/><path d="M208 2 L214 2 L211 11Z"/><path d="M228 2 L234 2 L231 11Z"/><path d="M248 2 L254 2 L251 11Z"/><path d="M268 2 L274 2 L271 11Z"/><path d="M288 2 L294 2 L291 11Z"/></g>
+          <g fill="#d8a574" opacity=".4"><path d="M9 2 L13 2 L11.5 5Z"/><path d="M49 2 L53 2 L51.5 5Z"/><path d="M129 2 L133 2 L131.5 5Z"/><path d="M209 2 L213 2 L211.5 5Z"/><path d="M289 2 L293 2 L291.5 5Z"/></g></svg>
+        <p class="sub"></p><div class="subrule"></div>
+        <div class="q"></div>
+        <div class="meta"><span class="src"></span><span class="date"></span></div>
+        <svg class="wedge bot" viewBox="0 0 300 13" preserveAspectRatio="none" aria-hidden="true"><g fill="#4a2a12" opacity=".55"><path d="M8 2 L14 2 L11 11Z"/><path d="M28 2 L34 2 L31 11Z"/><path d="M48 2 L54 2 L51 11Z"/><path d="M68 2 L74 2 L71 11Z"/><path d="M88 2 L94 2 L91 11Z"/><path d="M108 2 L114 2 L111 11Z"/><path d="M128 2 L134 2 L131 11Z"/><path d="M148 2 L154 2 L151 11Z"/><path d="M168 2 L174 2 L171 11Z"/><path d="M188 2 L194 2 L191 11Z"/><path d="M208 2 L214 2 L211 11Z"/><path d="M228 2 L234 2 L231 11Z"/><path d="M248 2 L254 2 L251 11Z"/><path d="M268 2 L274 2 L271 11Z"/><path d="M288 2 L294 2 L291 11Z"/></g></svg>
+      </div>
+    </article>
+<article class="ex ex--papyrus dropcap" data-style="papyrus">
+      <div class="layer grain"></div>
+      <div class="content">
+        <svg class="band top" viewBox="0 0 320 16" preserveAspectRatio="none" aria-hidden="true"><rect width="320" height="16" fill="#9c4a22" opacity=".22"/><g fill="none" stroke="#8a3a1c" stroke-width="1.4">
+          <path d="M20 13 C20 7 26 5 28 10 C30 5 36 7 36 13 M28 10 L28 4"/><path d="M150 13 C150 7 156 5 158 10 C160 5 166 7 166 13 M158 10 L158 4"/><path d="M280 13 C280 7 286 5 288 10 C290 5 296 7 296 13 M288 10 L288 4"/></g>
+          <g fill="#8a3a1c" opacity=".5"><circle cx="90" cy="8" r="1.4"/><circle cx="220" cy="8" r="1.4"/></g></svg>
+        <p class="sub"></p>
+        <div class="q"></div>
+        <div class="meta"><span class="src"></span><span class="date"></span></div>
+        <svg class="band bot" viewBox="0 0 320 16" preserveAspectRatio="none" aria-hidden="true"><rect width="320" height="16" fill="#9c4a22" opacity=".22"/></svg>
+      </div>
+    </article>
+<article class="ex ex--waka dropcap" data-style="waka">
+      <div class="layer grain"></div><div class="layer flecks"></div>
+      <svg class="shitae" viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke="#8a6a2a" stroke-width="1.4">
+        <path d="M30 110 C44 86 52 60 60 32 C64 18 74 10 90 8"/><path d="M58 56 C46 52 38 44 36 32 M64 40 C76 34 84 24 86 12"/></g>
+        <g fill="#9a7a3a"><circle cx="60" cy="30" r="3"/><circle cx="55" cy="25" r="2.2"/><circle cx="66" cy="26" r="2.2"/><circle cx="88" cy="9" r="3"/></g></svg>
+      <div class="content">
+        <p class="sub"></p><div class="subrule"></div>
+        <div class="q"></div>
+        <div class="meta"><span class="src"></span><span class="date"></span></div>
+      </div>
+    </article>
+<article class="ex ex--palm dropcap" data-style="palm">
+      <div class="layer grain"></div>
+      <span class="hole h1"></span><span class="hole h2"></span>
+      <div class="content">
+        <p class="sub"></p><div class="subrule"></div>
+        <div class="q"></div>
+        <div class="meta"><span class="src"></span><span class="date"></span></div>
+      </div>
+    </article>
+<article class="ex ex--quran dropcap" data-style="quran">
+      <div class="layer grain"></div>
+      <div class="content">
+        <svg class="shamsa" viewBox="0 0 66 66" aria-hidden="true">
+          <g fill="#c19a44"><g id="ray"><path d="M33 1 L36 10 L30 10Z"/></g>
+            <use href="#ray" transform="rotate(22.5 33 33)"/><use href="#ray" transform="rotate(45 33 33)"/><use href="#ray" transform="rotate(67.5 33 33)"/><use href="#ray" transform="rotate(90 33 33)"/><use href="#ray" transform="rotate(112.5 33 33)"/><use href="#ray" transform="rotate(135 33 33)"/><use href="#ray" transform="rotate(157.5 33 33)"/><use href="#ray" transform="rotate(180 33 33)"/><use href="#ray" transform="rotate(202.5 33 33)"/><use href="#ray" transform="rotate(225 33 33)"/><use href="#ray" transform="rotate(247.5 33 33)"/><use href="#ray" transform="rotate(270 33 33)"/><use href="#ray" transform="rotate(292.5 33 33)"/><use href="#ray" transform="rotate(315 33 33)"/><use href="#ray" transform="rotate(337.5 33 33)"/>
+          </g>
+          <circle cx="33" cy="33" r="22" fill="#2c4ca0"/><circle cx="33" cy="33" r="22" fill="none" stroke="#c19a44" stroke-width="1.5"/>
+          <g fill="#e8d59a"><circle cx="33" cy="33" r="9"/></g>
+          <g fill="#2c4ca0"><circle cx="33" cy="33" r="3.4"/></g>
+          <g fill="none" stroke="#e8d59a" stroke-width="1"><path d="M33 24 C36 28 36 30 33 33 C30 30 30 28 33 24"/><path d="M42 33 C38 36 36 36 33 33 C36 30 38 30 42 33"/><path d="M33 42 C30 38 30 36 33 33 C36 36 36 38 33 42"/><path d="M24 33 C28 30 30 30 33 33 C30 36 28 36 24 33"/></g>
+        </svg>
+        <p class="sub"></p><div class="subrule"></div>
+        <div class="q"></div>
+        <div class="meta"><span class="src"></span><span class="date"></span></div>
+      </div>
+    </article>
+<article class="ex ex--rubbing dropcap" data-style="rubbing">
+      <div class="layer grid"></div><div class="layer grain"></div><div class="layer chisel"></div>
+      <div class="content">
+        <p class="sub"></p><div class="subrule"></div>
+        <div class="q"></div>
+        <div class="meta"><span class="src"></span><span class="date"></span></div>
+      </div>
+    </article>
+<article class="ex ex--bookplate" data-style="bookplate" data-fit="0.92">
+      <div class="layer hatch"></div>
+      <div class="content">
+        <svg class="crest" viewBox="0 0 58 58" aria-hidden="true"><g fill="none" stroke="#5a4a2c" stroke-width="1.3">
+          <path d="M14 40 C20 36 27 36 29 40 C31 36 38 36 44 40 L44 26 C38 22 31 22 29 26 C27 22 20 22 14 26Z"/>
+          <path d="M29 26 L29 40"/>
+          <path d="M9 44 C16 38 14 30 12 24 M49 44 C42 38 44 30 46 24"/></g>
+          <g fill="#5a4a2c"><circle cx="10" cy="22" r="1.4"/><circle cx="48" cy="22" r="1.4"/></g>
+          <path d="M29 12 L31 17 L29 20 L27 17Z" fill="#8a6a2a"/></svg>
+        <p class="exlibris">Ex Libris</p>
+        <p class="sub"></p><div class="subrule"></div>
+        <div class="q"></div>
+        <div class="meta"><span class="src"></span><span class="date"></span></div>
+      </div>
+    </article>
+<article class="ex ex--letterpress" data-style="letterpress">
+      <div class="layer fine"></div><div class="layer tooth"></div>
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="content">
+        <svg class="head" viewBox="0 0 160 30" aria-hidden="true">
+          <g fill="#bd923f">
+            <path d="M80 4 C83 8 85 10 88 11 C85 13 83 18 80 24 C77 18 75 13 72 11 C75 10 77 8 80 4Z"/>
+            <path d="M73 13 C60 11 52 14 44 12 C36 10 30 13 30 18 C30 22 35 24 39 22 C36 21 36 17 40 17 C45 17 47 21 54 21 C48 18 70 18 73 13Z"/>
+            <circle cx="27" cy="20" r="1.6"/>
+            <path d="M87 13 C100 11 108 14 116 12 C124 10 130 13 130 18 C130 22 125 24 121 22 C124 21 124 17 120 17 C115 17 113 21 106 21 C112 18 90 18 87 13Z"/>
+            <circle cx="133" cy="20" r="1.6"/>
+          </g>
+          <g fill="#f4dd95" opacity="0.6"><path d="M80 4 C82 7 83 9 85 10 C83 11 82 9 80 7 C78 9 77 11 75 10 C77 9 78 7 80 4Z"/><path d="M44 12 C50 12 58 13 66 14 C58 14 50 14 44 13Z"/><path d="M116 12 C110 12 102 13 94 14 C102 14 110 14 116 13Z"/></g>
+        </svg>
+        <p class="sub"></p><div class="subrule"></div>
+        <div class="q"></div>
+        <div class="rule"><i>&#9670;</i></div>
+        <div class="meta"><span class="src"></span><span class="date"></span></div>
+      </div>
+    </article>
+<article class="ex ex--clip2 dropcap" data-style="clip2">
+      <div class="content">
+        <svg class="vine" viewBox="0 0 230 30" aria-hidden="true"><path d="M14,20 Q42,4 70,18 T128,18 Q156,3 188,18 Q208,24 220,12" fill="none" stroke="#b03828" stroke-width="0.7" stroke-linecap="round"/><path d="M48,14 q3,-9 9,-5 q-1,8 -9,5 Z" fill="#b03828"/><path d="M88,16 q-3,-8 -8,-4 q1,7 8,4 Z" fill="#b03828"/><path d="M150,15 q3,-9 9,-5 q-1,8 -9,5 Z" fill="#b03828"/></svg>
+        <p class="sub"></p><div class="subrule"></div>
+        <div class="q"></div>
+        <div class="meta"><span class="src"></span><span class="date"></span></div>
+        <div class="finis">&#9670;</div>
+      </div>
+    </article>
+      </div>
+      <!-- Optimization 11: short rule between hero and label -->
+      <div style="width:24px; height:.5px; background:#8b6a45; margin:8px auto 4px; opacity:.5;"></div>
+      <div class="style-tag" id="tag"><h3></h3><p></p></div>
+    </div>
+    <div class="page right">
+      <div class="right-header"><h2>Patterns</h2><div class="count"><i class="cr"></i>12 styles<i class="cr"></i></div></div>
+      <div class="swatches" id="swatches"></div>
+    </div>
+    </div>
+  </div>
+  <div class="tools">
+    <span class="tcap">Show</span>
+    <div class="stamps">
+      <div class="stamp" data-hide="sub"><span class="lb">Subhead</span></div>
+      <div class="stamp" data-hide="src"><span class="lb">Source</span></div>
+      <div class="stamp" data-hide="date"><span class="lb">Date</span></div>
+      <div class="stamp" data-hide="dropcap"><span class="lb">Drop Cap</span></div>
+    </div>
+    <span class="tdiv"></span>
+    <div class="savewrap"><span class="savetip" id="savetip">Sealing…</span><div class="save-seal" id="save">&#10086;</div><span class="seal-cap">Imprint</span></div>
+  </div>
+</div>
+<script src="../lib/html-to-image.min.js"></script>
+<script src="samplebook.js"></script>
+</body>
+</html>

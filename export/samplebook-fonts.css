@@ -1,0 +1,56 @@
+/* Bundled fonts for the samplebook export page (no network needed; required for Chrome Web Store MV3). */
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400 700;
+  src: url('../fonts/CormorantGaramond-VF-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 400 700;
+  src: url('../fonts/CormorantGaramond-Italic-VF-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 400 900;
+  src: url('../fonts/Cinzel-VF-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Pinyon Script';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/PinyonScript-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/SourceSerif4-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: italic;
+  font-weight: 400;
+  src: url('../fonts/SourceSerif4-Italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../fonts/SourceSerif4-SemiBold-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 400 500;
+  src: url('../fonts/Caveat-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 600 700;
+  src: url('../fonts/Caveat-Bold.woff2') format('woff2');
+}

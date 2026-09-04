@@ -1,0 +1,30 @@
+Bayaaz 导出页内嵌的中文字体 —— 均为 SIL Open Font License 1.1 开源字体，
+本地子集化（GB2312 ∪ Big5 字集，约 16000 字符，简繁全覆盖）后以 woff2 形式打包，无远程加载（守 MV3 离线要求）。
+注：朱雀仿宋 v0.212 繁体覆盖约 59%，缺字经 fallback 落系统仿宋(STFangsong)→已打包文津宋→宋。文津宋/霞鹜文楷简繁均 100%。
+OFL 1.1 允许自由使用、嵌入、捆绑再分发、子集化与修改，详见 https://openfontlicense.org
+
+────────────────────────────────────────────────────────
+1) 文津宋体 WenJin Mincho  →  WenJinMincho-subset.woff2
+   用途：刻铭组（illum/cert/wax/papyrus/quran/rubbing）题注 + 首字
+   版权：Copyright (c) takushun-wu, WenJin Mincho Project
+   源：  https://github.com/takushun-wu/WenJinMincho  (v2.011, P0/BMP)
+   授权：SIL Open Font License 1.1
+
+2) 霞鹜文楷 LXGW WenKai GB  →  LXGWWenKai-subset.woff2
+   用途：书写组（waka/palm/clay/bookplate/clip2）题注 + 首字；
+        waka/clip2/bookplate 另含正文 + 出处
+   版权：Copyright (c) 2021-2024 The LXGW WenKai Project Authors (https://github.com/lxgw/LxgwWenkaiGB)
+        基于 FONTWORKS Klee One（亦 OFL）衍生
+   源：  https://github.com/lxgw/LxgwWenkaiGB  (v1.522, Regular)
+   授权：SIL Open Font License 1.1
+
+3) 朱雀仿宋 Zhuque Fangsong  →  ZhuqueFangsong-subset.woff2
+   用途：铅印组（letterpress）题注 + 首字 + 正文 + 出处
+   版权：Copyright (c) TrionesType, Zhuque Fangsong Project
+   源：  https://github.com/TrionesType/zhuque  (technical preview v0.212)
+   授权：SIL Open Font License 1.1
+
+────────────────────────────────────────────────────────
+子集化命令（可复现）：
+  pyftsubset <原字体>.ttf --text=<GB2312字集> --flavor=woff2 --layout-features=* --name-IDs=*
+原字体完整文件与各自的 OFL 全文，见上列 GitHub 源仓库。
